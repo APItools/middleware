@@ -4,7 +4,7 @@
     "files": ["404_alert.lua"],
     "author" : "3scale",
     "email" : "apitools@apitools.com",
-    "github-user" : "apitools",
+    "github_user" : "apitools",
     "version" : "1.0.0",
     "categories" : ["devops", "notifications"],
     "endpoints": ["*"]
