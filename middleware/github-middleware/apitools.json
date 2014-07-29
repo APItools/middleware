@@ -4,7 +4,7 @@
     "author" : "Raimon Grau",
     "description": "test description",
     "email" : "raimon@3scale.net",
-    "github-user" : "kidd",
+    "github_user" : "kidd",
     "version" : "1.0.0",
     "categories" : ["misc"],
     "endpoints": ["https://api.github.com"]

@@ -5,6 +5,6 @@
     "author" : "Raimon Grau",
     "email" : "raimon@3scale.net",
     "version" : "1.0.0",
-    "github-user" : "rgrau",
+    "github_user" : "rgrau",
     "endpoints": ["*"]
 }

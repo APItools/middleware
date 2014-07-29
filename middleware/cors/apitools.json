@@ -1,11 +1,11 @@
 {
-    "name": "cors",
-    "description": "enables CORS for the endpoint",
+    "name": "CORS",
+    "description": "Cross Origin Resource Sharing allows you to use API directly from the browser",
     "files": ["cors.lua"],
     "author" : "3scale",
     "email" : "apitools@apitools.com",
-    "github-user" : "apitools",
+    "github_user" : "apitools",
     "version" : "1.0.0",
-    "categories" : ["misc"],
+    "categories" : ["misc", "frontend"],
     "endpoints": ["*"]
 }
