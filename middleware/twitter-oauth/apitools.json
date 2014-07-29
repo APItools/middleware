@@ -1,0 +1,11 @@
+{
+    "name": "twitter-oauth",
+    "description": "Authenticate calls to Twitter API",
+    "files": ["twitter_oauth.lua"],
+    "author" : "Picsoung",
+    "email" : "nicolas@3scale.net",
+    "github_user" : "Picsoung",
+    "version" : "1.0.0",
+    "categories" : ["oauth"],
+    "endpoints": ["*"]
+}
