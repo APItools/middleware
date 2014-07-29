@@ -1,6 +1,6 @@
 {
-    "name": "cors",
-    "description": "enables CORS for the endpoint",
+    "name": "Add Keys",
+    "description": "Add authentication key as a header.",
     "files": ["add_keys.lua"],
     "author" : "3scale",
     "email" : "apitools@apitools.com",
