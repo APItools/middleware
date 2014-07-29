@@ -1,0 +1,11 @@
+{
+    "name": "foo",
+    "files": ["file1.lua"],
+    "author" : "Raimon Grau",
+    "description": "test description",
+    "email" : "raimon@3scale.net",
+    "github-user" : "kidd",
+    "version" : "1.0.0",
+    "categories" : ["misc"],
+    "endpoints": ["https://api.twitter.com"]
+}

@@ -1,0 +1,14 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    apitools-middleware (0.0.2)
+      semantic
+    rake (10.3.2)
+    semantic (1.3.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  apitools-middleware (~> 0.0.2)
+  rake

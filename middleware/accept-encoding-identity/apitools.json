@@ -1,0 +1,11 @@
+{
+    "name": "Accept-Encoding = Identity",
+    "description": "Sets the `Accept-Encoding` header to `identity`. This deactivates gzipped responses. This middleware is inserted by default in all new services.",
+    "files": ["accept-encoding-identity.lua"],
+    "author" : "3scale",
+    "email" : "apitools@apitools.com",
+    "github-user" : "apitools",
+    "version" : "1.0.0",
+    "categories" : ["misc"],
+    "endpoints": ["*"]
+}

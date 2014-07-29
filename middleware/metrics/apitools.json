@@ -1,0 +1,11 @@
+{
+    "name": "metrics",
+    "description": "enables CORS for the endpoint",
+    "files": ["add_metrics.lua"],
+    "author" : "3scale",
+    "email" : "apitools@apitools.com",
+    "github-user" : "apitools",
+    "version" : "1.0.0",
+    "categories" : ["misc"],
+    "endpoints": ["*"]
+}

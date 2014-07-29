@@ -1,0 +1,11 @@
+{
+    "name": "Measure X-Ratelimit-Remaining",
+    "description": "Allows measure custom metrics.",
+    "files": ["measure_x-ratelimit_remaining.lua"],
+    "author" : "3scale",
+    "email" : "apitools@apitools.com",
+    "github-user" : "apitools",
+    "version" : "1.0.0",
+    "categories" : ["ploting", "analytics", "metrics"],
+    "endpoints": ["*"]
+}

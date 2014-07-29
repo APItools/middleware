@@ -1,0 +1,11 @@
+{
+    "name": "CORS Header",
+    "description": "Cross origin resource sharing allows you to use API directly from the browser",
+    "files": ["cors_header.lua"],
+    "author" : "3scale",
+    "email" : "apitools@apitools.com",
+    "github-user" : "apitools",
+    "version" : "1.0.0",
+    "categories" : ["misc", "frontend"],
+    "endpoints": ["*"]
+}

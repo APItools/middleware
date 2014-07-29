@@ -1,0 +1,11 @@
+{
+    "name": "add-args",
+    "description": "adds a paramter",
+    "files": ["add_args.lua"],
+    "author" : "3scale",
+    "email" : "apitools@apitools.com",
+    "github-user" : "apitools",
+    "version" : "1.0.0",
+    "categories" : ["misc"],
+    "endpoints": ["*"]
+}

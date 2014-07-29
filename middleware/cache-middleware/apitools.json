@@ -1,0 +1,11 @@
+{
+    "name": "cache",
+    "description": "Caches responses so you don't have to care about rate limiting!",
+    "files": ["cache.lua"],
+    "author" : "3scale",
+    "email" : "apitools@apitools.com",
+    "github-user" : "apitools",
+    "version" : "1.0.0",
+    "categories" : ["misc"],
+    "endpoints": ["*"]
+}

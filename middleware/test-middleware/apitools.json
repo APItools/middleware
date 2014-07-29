@@ -1,0 +1,10 @@
+{
+    "name": "test",
+    "files": ["file1.lua"],
+    "description": "test description",
+    "author" : "Raimon Grau",
+    "email" : "raimon@3scale.net",
+    "version" : "1.0.0",
+    "github-user" : "rgrau",
+    "endpoints": ["*"]
+}
