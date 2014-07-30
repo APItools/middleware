@@ -1,3 +1,12 @@
+-- split function to split a string by a delimiter
+function split(s, delimiter)
+    result = {}
+    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+        table.insert(result, match)
+    end
+    return result
+end
+
 return function(request, next_middleware)
   local response
   local apiToken = 'YO_API_TOKEN'
