@@ -1,0 +1,11 @@
+{
+    "name": "Response Time Alert",
+    "description": "Sends an email in case a call takes more than expected",
+    "files": ["response_time_alert.lua"],
+    "author" : "3scale",
+    "email" : "apitools@apitools.com",
+    "github_user" : "apitools",
+    "version" : "1.0.0",
+    "categories" : ["devops", "notifications"],
+    "endpoints": ["*"]
+}
