@@ -6,7 +6,8 @@ return function (request, next_middleware)
 
     if trace.time > threshold  and (not last_mail or last_mail < time.now() - five_mins) then
         send.mail('YOUR-MAIL-HERE@gmail.com',
-	          "Trace took more than " .. tostring(threshold), request.uri_full .. " took more than " .. tostring(threshold) .. " to load.")
+	          "Trace took more than " .. tostring(threshold),
+            request.uri_full .. " took more than " .. tostring(threshold) .. " to load. See full trace:" .. trace.link)
         bucket.middleware.set('last_mail', time.now())
     end
     return res
