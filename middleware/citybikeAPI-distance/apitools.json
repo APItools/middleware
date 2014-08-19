@@ -1,0 +1,11 @@
+{
+    "name": "citybike - sort by distance",
+    "description": "Sort stations information CityBike API by location",
+    "files": ["citybike_location.lua"],
+    "author" : "Picsoung",
+    "email" : "nicolas@3scale.net",
+    "github_user" : "Picsoung",
+    "version" : "1.0.0",
+    "categories" : ["APIs"],
+    "endpoints": ["*"]
+}
