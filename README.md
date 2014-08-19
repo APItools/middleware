@@ -4,6 +4,17 @@ This is a collection of Middleware that you can use in APItools Traffic Monitors
 
 You can use almost all of [Lua Standard Library](http://www.lua.org/manual/5.1/manual.html#5) with [some exceptions](//github.com/APItools/monitor/blob/master/lua/sandbox.lua#L53-L71).
 
+## Creating Middleware
+
+We provide simple rake task to get started with middleware template.
+You just have to have Ruby, install dependencies, run `rake middleware`
+and fill out the questions.
+
+```shell
+bundle
+rake middleware
+```
+
 ## TODO
 
 * We would like to add tests for the middlewares.
