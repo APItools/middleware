@@ -1,0 +1,11 @@
+{
+    "name": "xml-to-json",
+    "description": "Transforms an xml response into a JSON response",
+    "files": ["xml-to-json.lua"],
+    "author" : "3scale",
+    "email" : "apitools@apitools.com",
+    "github_user" : "apitools",
+    "version" : "1.0.0",
+    "categories" : ["misc"],
+    "endpoints": ["*"]
+}
