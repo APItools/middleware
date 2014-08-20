@@ -15,16 +15,12 @@ return function(request, next_middleware)
     e.location = currentEvent.other_location
     e.category = currentEvent.event_type.abbr
     
-    console.log(tostring(#currentEvent.occurrence_set),tostring(currentEvent.title))
     for j=1,#currentEvent.occurrence_set do
       e.start_time = currentEvent.occurrence_set[j].start_time
       e.end_time = currentEvent.occurrence_set[j].end_time
       table.insert(newresponse,e)
     end
   end
-  
-  console.log("nb events ", tostring(#events));
-  console.log("nb total ", tostring(#newresponse));
   
   response.body = json.encode(newresponse)
   

@@ -63,8 +63,6 @@ return function(request, next_middleware)
   dataInfo.nb_kids = #kids
   dataInfo.nb_uncategorized = #nocategory
   
-  
-  console.log("nb events ", tostring(#events));
   local newresponse ={}
   newresponse.parties = parties
   newresponse.workshops = workshops
