@@ -1,3 +1,9 @@
 language: ruby
 rvm:
   - 2.1.2
+cache:
+  - bundler
+  - apt
+install:
+  - sudo apt-get install luajit luarocks
+  - sudo luarocks install luacheck

@@ -27,6 +27,8 @@ task :test do
     exit(false)
   end
 
+  system('luacheck -q -g -a -u middleware/**/*.lua')
+
   puts '[SUCCESS] all middlewares are ok'
 end
 
