@@ -7,6 +7,7 @@ You can use almost all of [Lua Standard Library](http://www.lua.org/manual/5.1/m
 ## TODO
 
 * We would like to add tests for the middlewares.
+* Integrate [luacheck](https://github.com/mpeterv/luacheck)
 
 ## Contributing
 
