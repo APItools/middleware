@@ -2,15 +2,25 @@ language: ruby
 rvm:
   - 2.1.2
 cache:
-  - bundler
-  - apt
+  bundler: true
+  apt: true
+  directories:
+  - /usr/local
 env:
   global:
     - LUAROCKS_VERSION=2.2.0
+    - OPENRESTY_VERSION=1.7.2.1
+    - OPENRESTY=/usr/local/openresty
+before_install:
+  - sudo apt-get -y install make build-essential libpcre3-dev libssl-dev libexpat1-dev unzip
 install:
-  - sudo apt-get install luajit libluajit-5.1-dev
+  - wget -qO- http://openresty.org/download/ngx_openresty-$OPENRESTY_VERSION.tar.gz | tar xvz -C /tmp/
   - wget -qO- http://luarocks.org/releases/luarocks-$LUAROCKS_VERSION.tar.gz | tar xvz -C /tmp/
+  - cd /tmp/ngx_openresty-$OPENRESTY_VERSION && ./configure --prefix=$OPENRESTY && sudo make install
+  - sudo ln -sf /usr/local/openresty/luajit/bin/luajit-2.1.0-alpha /usr/local/openresty/luajit/bin/lua
+  - sudo ln -sf /usr/local/openresty/luajit/bin/lua /usr/local/bin/lua
   - cd /tmp/luarocks-$LUAROCKS_VERSION
-  - ./configure --lua-version=5.1 --lua-suffix=jit --with-lua-include=/usr/include/luajit-2.0
-  - sudo make install
+  - ./configure --with-lua=$OPENRESTY/luajit --with-lua-include=$OPENRESTY/luajit/include/luajit-2.1 --with-lua-lib=$OPENRESTY/lualib
+  - make && sudo make install
   - sudo luarocks install luacheck
+  - cd $TRAVIS_BUILD_DIR && bundle install
