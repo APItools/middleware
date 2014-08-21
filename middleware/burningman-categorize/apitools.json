@@ -1,0 +1,11 @@
+{
+    "name": "Burningman categorize events",
+    "description": "Categorize events by type",
+    "files": ["burningman_categorize.lua"],
+    "author" : "Picsoung",
+    "email" : "nicolas@3scale.net",
+    "github_user" : "Picsoung",
+    "version" : "1.0.0",
+    "categories" : ["APIs"],
+    "endpoints": ["*"]
+}

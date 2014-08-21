@@ -1,0 +1,11 @@
+{
+    "name": "Burningman demultiply events",
+    "description": "If an event happens more than once, create a new event.",
+    "files": ["burningman_demultiply.lua"],
+    "author" : "Picsoung",
+    "email" : "nicolas@3scale.net",
+    "github_user" : "Picsoung",
+    "version" : "1.0.0",
+    "categories" : ["APIs"],
+    "endpoints": ["*"]
+}
