@@ -25,14 +25,20 @@ function Bucket_methods:add(field_name, value, exptime)
   return true
 end
 
+function Bucket_methods:get_keys()
+  local keys = {}
+  for k in pairs(self) do
+    keys[#keys + 1] = k
+  end
+  return keys
+end
+
 ----------------------------------------
 
 local function makeDotMethod(bucket, name)
   local method = Bucket_methods[name]
   if method then
-    local f = function(...) return method(bucket, ...) end
-    rawset(bucket, name, f)
-    return f
+    return function(...) return method(bucket, ...) end
   end
 end
 
