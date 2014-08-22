@@ -4,30 +4,30 @@ local Bucket = {}
 local Bucket_methods = {}
 
 function Bucket_methods:get(field_name)
-  return self[field_name]
+  return self.values[field_name]
 end
 
 function Bucket_methods:set(field_name, value, exptime)
-  self[field_name] = value
+  self.values[field_name] = value
 end
 
 function Bucket_methods:delete(field_name)
-  self[field_name] = nil
+  self.values[field_name] = nil
 end
 
 function Bucket_methods:incr(field_name, amount)
-  self[field_name] = self[field_name] + (amount or 1)
+  self.values[field_name] = self.values[field_name] + (amount or 1)
 end
 
 function Bucket_methods:add(field_name, value, exptime)
-  if self[field_name] then return false end
-  self[field_name] = value
+  if self.values[field_name] then return false end
+  self.values[field_name] = value
   return true
 end
 
 function Bucket_methods:get_keys()
   local keys = {}
-  for k in pairs(self) do
+  for k in pairs(self.values) do
     keys[#keys + 1] = k
   end
   return keys
@@ -38,14 +38,16 @@ end
 local function makeDotMethod(bucket, name)
   local method = Bucket_methods[name]
   if method then
-    return function(...) return method(bucket, ...) end
+    local f = function(...) return method(bucket, ...) end
+    rawset(bucket, name, f)
+    return f
   end
 end
 
 local Bucket_mt = { __index = makeDotMethod }
 
 function Bucket.new()
-  return setmetatable({}, Bucket_mt)
+  return setmetatable({values = {}}, Bucket_mt)
 end
 
 return Bucket
