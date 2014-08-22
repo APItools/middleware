@@ -14,10 +14,21 @@ function env.new()
   local base64 = { decode = mime.unb64,
                    encode = mime.b64 }
 
-  local send = { email         = email,
-                 mail          = send_email,
-                 event         = send_event,
-                 notification  = send_notification }
+  local send = { emails = {}, events = {} }
+
+  send.email = function(to, subject, message)
+    send.emails[#send.emails + 1] = {to=to, subject=subject, message = message}
+  end
+
+  send.mail = send.email
+  send.event = function(ev)
+    send.events[#send.events + 1] = ev
+  end
+
+  send.notification = function(notification)
+    notification.channel = 'middleware'
+    send.event(notification)
+  end
 
   local time =   { seconds = os.time,
                    http    = os.time,
