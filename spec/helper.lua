@@ -1,34 +1,18 @@
-package.path = package.path .. ";./spec/pipeline/?;./spec/pipeline/?.lua"
+package.path = package.path .. ";./spec/env/?.lua;./middleware/?/?.lua"
 
-local Pipeline  = require 'pipeline'
+local env     = require 'env'
+local sandbox = require 'spec.sandbox'
 
 local helper = {}
 
-helper.new_pipeline = function(mw_name, mw_path)
-  local f       = assert(io.open(mw_path, "rb"))
-  local mw_code = f:read("*all")
-  f:close()
+helper.run = function(middleware, request, expected_response)
+  local environment     = env.new()
+  local sandboxed_mw    = sandbox.protect(middleware, {env = environment})
 
-  return {
-    service_id = 1,
-    middlewares = {
-      { position = 1,
-        name     = mw_name,
-        code     = mw_code
-      }
-    }
-  }
-end
+  local next_middleware = function() return expected_response end
+  local response        = sandboxed_mw(request, next_middleware)
 
-helper.run = function(pipeline, url)
-  -- FIXME add these as params/options
-  ngx.var.request_method  = 'GET'
-  ngx.var.scheme          = 'http'
-  ngx.var.host            = 'localhost'
-  ngx.var.is_args         = ''
-
-  ngx.var.request_uri = '/foo/bar'
-  Pipeline.execute(pipeline, url)
+  return response, environment
 end
 
 return helper

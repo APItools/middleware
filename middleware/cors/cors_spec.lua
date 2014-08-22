@@ -1,20 +1,16 @@
-local fakengx = require 'spec.fakengx'
 local helper  = require 'spec.helper'
+local cors    = require 'cors'
 
-local pipeline = helper.new_pipeline('cors', 'middleware/cors/cors.lua')
 
 describe("CORS", function()
-
-  before_each(function()
-    _G.ngx = fakengx.new()
-  end)
-
   describe("when the status is not 404", function()
     it("does nothing", function()
-      ngx.location.stub('http://localhost/foo/bar', {}, {body = 'ok'})
+      local request  = { method = 'GET', uri = '/'}
+      local response = { status = 200, body = 'ok' }
 
-      helper.run(pipeline, 'http://google.com')
-      assert.is_true(true)
+      local res, env = helper.run(cors, request, response)
+
+      assert.same(res, response)
     end)
   end)
 end)

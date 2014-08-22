@@ -1,9 +1,4 @@
-local fun = require('functional')
-
 local http = {}
-
-local map = fun.map
-local each = fun.each
 
 local PROXY_LOCATION = "/___http_call"
 local METHODS = {
@@ -59,7 +54,8 @@ local init_headers = function(req)
 end
 
 local init_req = function(r)
-  each(assert, {r.url, r.method})
+  assert(r.url)
+  assert(r.method)
 
   r.headers = headers(r)
   r.method = METHODS[r.method]
@@ -120,7 +116,9 @@ function http.simple(req, body)
 end
 
 function http.multi(reqs)
-  local initialized_reqs = map(init_req, reqs)
+  local initialized_reqs = {}
+  for i=1, #reqs do initialized_reqs[i] = init_req(reqs[i]) end
+
   return { ngx.location.capture_multi(initialized_reqs) }
 end
 
