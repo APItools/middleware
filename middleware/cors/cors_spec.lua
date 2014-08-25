@@ -1,5 +1,5 @@
 local helper  = require 'spec.helper'
-local cors    = require 'cors'
+local cors    = require 'cors.cors'
 
 
 describe("CORS", function()

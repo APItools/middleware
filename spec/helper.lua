@@ -1,4 +1,4 @@
-package.path = package.path .. ";./spec/env/?.lua;./middleware/?/?.lua"
+package.path = package.path .. ";./spec/env/?.lua;./middleware/?.lua"
 
 local env     = require 'env'
 local sandbox = require 'spec.sandbox'
