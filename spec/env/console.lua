@@ -1,3 +1,5 @@
+local inspect = require 'inspect'
+
 local Console = {}
 
 local function log(level, ...)
