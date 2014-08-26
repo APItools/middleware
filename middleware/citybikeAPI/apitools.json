@@ -1,0 +1,11 @@
+{
+    "name": "citybike - reduce payload",
+    "description": "Retrieve only relevant info from CityBike API",
+    "files": ["citybike_payload.lua"],
+    "author" : "Picsoung",
+    "email" : "nicolas@3scale.net",
+    "github_user" : "Picsoung",
+    "version" : "1.0.0",
+    "categories" : ["APIs"],
+    "endpoints": ["*"]
+}
