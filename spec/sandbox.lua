@@ -96,8 +96,6 @@ end)
 
 -- auxiliary functions/variables
 
-local string_rep = string.rep
-
 local function merge(dest, source)
   for k,v in pairs(source) do
     dest[k] = dest[k] or v
@@ -108,11 +106,6 @@ end
 local function sethook(f, key, quota)
   if type(debug) ~= 'table' or type(debug.sethook) ~= 'function' then return end
   debug.sethook(f, key, quota)
-end
-
-local function cleanup()
-  sethook()
-  string.rep = string_rep
 end
 
 -- Public interface: sandbox.protect
@@ -135,17 +128,15 @@ function sandbox.protect(f, options)
 
     if quota then
       local timeout = function()
-        cleanup()
+        sethook()
         error('Quota exceeded: ' .. tostring(quota))
       end
       sethook(timeout, "", quota)
     end
 
-    string.rep = nil
-
     local ok, result = pcall(f, ...)
 
-    cleanup()
+    sethook()
 
     if not ok then error(result) end
     return result
