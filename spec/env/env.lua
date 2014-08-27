@@ -1,9 +1,9 @@
-local inspect      = require 'inspect'
+local inspect      = require 'spec.inspect'
 local xml          = require 'lxp'
-local http         = require 'http'
-local sha          = require 'sha'
-local Bucket       = require 'bucket'
-local Console      = require 'console'
+local http         = require 'spec.env.http'
+local sha          = require 'spec.env.sha'
+local Bucket       = require 'spec.env.bucket'
+local Console      = require 'spec.env.console'
 
 local mime         = require 'mime' -- provided by luasocket
 

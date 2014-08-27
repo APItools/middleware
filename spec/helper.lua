@@ -1,7 +1,10 @@
-package.path = package.path .. ";./spec/env/?.lua;./middleware/?.lua"
+package.path = package.path .. ";./middleware/?.lua"
 
-local env     = require 'env'
-local sandbox = require 'spec.sandbox'
+local env          = require 'spec.env.env'
+local inspect      = require 'spec.inspect'
+local sandbox      = require 'spec.sandbox'
+local querystring  = require 'spec.querystring'
+local url          = require 'socket.url' -- provided by luasocket
 
 local helper = {}
 
