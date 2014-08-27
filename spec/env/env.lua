@@ -43,6 +43,8 @@ function env.new()
 
   local metric = { counts = {}, sets = {} }
 
+  local trace = { link = "<trace_link>" }
+
   metric.count = function(name, inc)
     metric.counts[name] = (metric.counts[name] or 0) + (inc or 1)
   end
