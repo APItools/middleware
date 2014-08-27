@@ -1,4 +1,4 @@
-local helper  = require 'spec.helper'
+local expect  = require 'spec.expect'
 local cors    = require 'cors.cors'
 
 
@@ -8,7 +8,7 @@ describe("CORS", function()
       local request  = { method = 'GET', uri = '/'}
       local response = { status = 200, body = 'ok' }
 
-      helper.expect(cors):called_with(request, response)
+      expect(cors):called_with(request, response)
         :to_pass(request)
         :to_return(response)
         :to_send_number_of_emails(0)
@@ -21,7 +21,7 @@ describe("CORS", function()
       local request  = { method = 'GET', uri = '/'}
       local response = { status = 404, body = 'error' }
 
-      helper.expect(cors):called_with(request, response)
+      expect(cors):called_with(request, response)
         :to_return(response)
         :to_set_in_middleware_bucket('last_mail')
         :to_send_email('YOUR-MAIL-HERE@gmail.com', 'A 404 has ocurred', 'a 404 error happened in http://localhost/')
@@ -31,7 +31,7 @@ describe("CORS", function()
       local request  = { method = 'GET', uri = '/'}
       local response = { status = 404, body = 'error' }
 
-      helper.expect(cors)
+      expect(cors)
         :called_with(request, response) -- not a typo, call the same request twice
         :called_with(request, response)
         :to_send_number_of_emails(1)

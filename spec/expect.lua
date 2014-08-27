@@ -6,8 +6,6 @@ local sandbox      = require 'spec.sandbox'
 local querystring  = require 'spec.querystring'
 local url          = require 'socket.url' -- provided by luasocket
 
-local helper = {}
-
 local function copy_recursive(t)
   if type(t) ~= 'table' then return t end
   local c = {}
@@ -129,8 +127,8 @@ function Expectation:to_send_email(to, subject, message)
   ))
 end
 
-helper.expect = function(middleware_f)
+local expect = function(middleware_f)
   return setmetatable({ middleware_f = middleware_f}, Expectation_mt)
 end
 
-return helper
+return expect
