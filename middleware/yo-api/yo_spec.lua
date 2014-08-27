@@ -1,20 +1,33 @@
-local helper  = require 'spec.helper'
+local expect  = require 'spec.expect'
 local yo      = require 'yo-api.yo'
 
 
 describe("yo-api", function()
   describe("when the uri is /", function()
     it("sends an email and a notification", function()
-      local request  = { method = 'GET', uri = '/', args = {username = 'peter'}, headers = {}}
-      local response = { status = 200, body = '' }
+      local request            = { method = 'GET', url = '/?username=peter' }
+      local request_to_backend = { method = 'GET', url = '/?username=peter', headers = {['Content-Type'] = 'application/json'}}
 
-      local res, env = helper.run(yo, request, response)
+      expect(yo):called_with(request)
+        :to_pass(request_to_backend)
+        :to_send_number_of_emails(1)
+        :to_send_email('me@email.com', 'New Yo subscriber', 'NEW Yo SUBSCRIBER peter')
+        :to_send_number_of_events(1)
+        :to_send_event({channel='middleware', level='info', msg='new subscriber peter'})
+    end)
+  end)
 
-      assert.same(res, response)
-      assert.equal(#env.send.emails, 1)
-      assert.same(env.send.emails[1], {to='me@email.com', subject="New Yo subscriber", message="NEW Yo SUBSCRIBER peter"})
-      assert.equal(#env.send.events, 1)
-      assert.same(env.send.events[1], {channel='middleware', level='info', msg='new subscriber peter'})
+  describe("then the uri is /yoall/", function()
+    it("returns the apitoken", function()
+
+      local request            = { method = 'GET', uri = '/yoall/'}
+      local request_to_backend = { method = 'GET',
+                                   uri = '/yoall/',
+                                   headers = {['Content-Type'] = 'application/json'},
+                                   body    = '{"api_token":"YO_API_TOKEN"}' }
+
+      expect(yo):called_with(request)
+        :to_pass(request_to_backend)
     end)
   end)
 end)
