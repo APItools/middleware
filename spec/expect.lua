@@ -49,24 +49,36 @@ local function complete_request(req)
     error("Invalid request: Must provide at least one of the following: url, uri, uri_full or uri_relative")
   end
 
-  req.method = req.method or 'GET'
+  req.method  = req.method  or 'GET'
   req.headers = req.headers or {}
+
   return req
 end
+
+local function complete_backend_response(res)
+  res         = copy_recursive(res)
+
+  res.status  = res.status  or 200
+  res.body    = res.body    or 'ok (default body from spec.lua)'
+  res.headers = res.headers or {}
+
+  return res
+end
+
 
 local Expectation = {}
 local Expectation_mt = {__index = Expectation}
 
 function Expectation:called_with(request, backend_response)
-  backend_response = backend_response or {status = 200, body='ok (default body from spec)'}
+  backend_response = backend_response or {}
   request          = complete_request(request)
 
-  self.request          = copy_recursive(request)
-  self.backend_response = copy_recursive(backend_response)
+  self.request          = copy_recursive(request) -- we need the *initial* request here, not a reference
+  self.backend_response = complete_backend_response(backend_response)
   self.env              = self.env or env.new()
 
   local next_middleware = function()
-    self.request_to_backend = copy_recursive(request)
+    self.request_to_backend = copy_recursive(request) -- copy the request as it is when it enters next_middleware
     return self.backend_response
   end
 
