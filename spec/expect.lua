@@ -6,6 +6,21 @@ local sandbox      = require 'spec.sandbox'
 local querystring  = require 'spec.querystring'
 local url          = require 'socket.url' -- provided by luasocket
 
+local function same(t1,t2)
+  local tt1, tt2 = type(t1), type(t2)
+  if tt1 ~= tt2 then return false end
+  if tt1 == 'table' then
+    for k,v in pairs(t1) do
+      if not same(v, t2[k]) then return false end
+    end
+    for k,v in pairs(t2) do
+      if not same(v, t1[k]) then return false end
+    end
+    return true
+  end
+  return t1 == t2
+end
+
 local function copy_recursive(t)
   if type(t) ~= 'table' then return t end
   local c = {}
@@ -43,7 +58,7 @@ local Expectation = {}
 local Expectation_mt = {__index = Expectation}
 
 function Expectation:called_with(request, backend_response)
-  backend_response = backend_response or {status = 200, body='ok'}
+  backend_response = backend_response or {status = 200, body='ok (default body from spec)'}
   request          = complete_request(request)
 
   self.request          = copy_recursive(request)
@@ -125,6 +140,19 @@ function Expectation:to_send_email(to, subject, message)
   error(('The email to: %s with subject "%s" and message "%s" was not sent. Emails: %s'):format(
     to, subject, message, inspect(emails)
   ))
+end
+
+function Expectation:to_send_number_of_events(n)
+  assert.equal(#self.env.send.events, n)
+  return self
+end
+
+function Expectation:to_send_event(t)
+  local events = self.env.send.events
+  for i=1, #events do
+    if same(t, events[i]) then return self end
+  end
+  error(('The event %s was not sent. Events: %s'):format(inspect(t), inspect(events)))
 end
 
 local expect = function(middleware_f)
