@@ -1,10 +1,8 @@
 return function (request, next_middleware)
-  local five_mins = 60 * 5
   local res = next_middleware()
-  local last_mail = bucket.middleware.get('last_mail')
-  if res.status == 404  and (not last_mail or last_mail < time.now() - five_mins) then
-    send.mail('YOUR-MAIL-HERE@gmail.com', "A 404 has ocurred", "a 404 error happened in " .. request.uri_full)
-    bucket.middleware.set('last_mail', time.now())
-  end
+  -- Allow origin from certain domains (change as required)
+  res.headers['Access-Control-Allow-Origin'] = "http://domain1.com http://domain2.com"
+  -- Anable all domains (uncomment and comment the previous one if required)
+  -- res.headers['Access-Control-Allow-Origin'] = "*"
   return res
 end
