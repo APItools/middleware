@@ -27,8 +27,6 @@ task :test do
     exit(false)
   end
 
-  system('luacheck -q -a middleware/**/*.lua --globals - console inspect log base64 hmac http bucket send time metric trace json xml')
-
   puts '[SUCCESS] all middlewares are ok'
 end
 
