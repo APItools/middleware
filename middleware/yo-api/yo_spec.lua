@@ -18,7 +18,7 @@ describe("yo-api", function()
   end)
 
   describe("then the uri is /yoall/", function()
-    it("returns the apitoken", function()
+    it("passes the apitoken to the backend", function()
 
       local request            = { method = 'GET', uri = '/yoall/'}
       local request_to_backend = { method = 'GET',
@@ -28,6 +28,20 @@ describe("yo-api", function()
 
       expect(yo):called_with(request)
         :to_pass(request_to_backend)
+    end)
+  end)
+
+  describe("when the request is /yo/", function()
+    it("passes & uppercases the username to the backend, plus the API token", function()
+      local request            = { method = 'GET', uri = '/yo/', body="username=peter"}
+      local request_to_backend = { method = 'GET',
+                                   uri = '/yo/',
+                                   headers = {['Content-Type'] = 'application/json'},
+                                   body    = '{"username":"PETER","api_token":"YO_API_TOKEN"}' }
+
+      expect(yo):called_with(request)
+        :to_pass(request_to_backend)
+
     end)
   end)
 end)

@@ -51,6 +51,7 @@ local function complete_request(req)
 
   req.method  = req.method  or 'GET'
   req.headers = req.headers or {}
+  req.body    = req.body    or ""
 
   return req
 end
