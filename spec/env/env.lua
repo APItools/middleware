@@ -2,56 +2,33 @@ local inspect      = require 'spec.inspect'
 local xml          = require 'lxp'
 local http         = require 'spec.env.http'
 local sha          = require 'spec.env.sha'
-local Bucket       = require 'spec.env.bucket'
+local bucket       = require 'spec.env.bucket'
 local Console      = require 'spec.env.console'
+local send         = require 'spec.env.send'
+local metric       = require 'spec.env.metric'
 
 local mime         = require 'mime' -- provided by luasocket
 
 local env = {}
 
-function env.new()
+function env.new(spec)
 
   local base64 = { decode = mime.unb64,
                    encode = mime.b64 }
-
-  local send = { emails = {}, events = {} }
-
-  send.email = function(to, subject, message)
-    send.emails[#send.emails + 1] = {to=to, subject=subject, message = message}
-  end
-
-  send.mail = send.email
-  send.event = function(ev)
-    send.events[#send.events + 1] = ev
-  end
-
-  send.notification = function(notification)
-    notification.channel = 'middleware'
-    send.event(notification)
-  end
 
   local time =   { seconds = os.time,
                    http    = os.time,
                    now     = os.time }
 
-  local bucket = { middleware = Bucket.new(),
-                   service    = Bucket.new() }
-
   local hmac = { sha256 = sha.hash256 }
 
   local console = Console.new()
 
-  local metric = { counts = {}, sets = {} }
-
   local trace = { link = "<trace_link>" }
 
-  metric.count = function(name, inc)
-    metric.counts[name] = (metric.counts[name] or 0) + (inc or 1)
-  end
-
-  metric.set = function(name, value)
-    metric.sets[name] = value
-  end
+  local b = bucket.new(spec)
+  local s = send.new(spec)
+  local m = metric.new(spec)
 
   return {
 
@@ -63,13 +40,13 @@ function env.new()
     base64            = base64,
     hmac              = hmac,
     http              = safe_http,
-    bucket            = bucket,
-    send              = send,
     time              = time,
-    metric            = metric,
     trace             = trace,
     json              = cjson,
-    xml               = xml
+    xml               = xml,
+    bucket            = b,
+    send              = s,
+    metric            = m,
   }
 
 end

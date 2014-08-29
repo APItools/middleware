@@ -1,6 +1,9 @@
-local Bucket = {}
+local bucket = {}
+
 
 ----------------------------------------
+
+local Bucket = {}
 local Bucket_methods = {}
 
 function Bucket_methods:get(field_name)
@@ -50,4 +53,12 @@ function Bucket.new()
   return setmetatable({values = {}}, Bucket_mt)
 end
 
-return Bucket
+---------------------------------------
+
+function bucket.new(spec)
+  local instance = spec.bucket or { middleware = Bucket.new(), service = Bucket.new() }
+  spec.bucket = instance
+  return instance
+end
+
+return bucket

@@ -6,6 +6,8 @@ local sandbox      = require 'spec.sandbox'
 local querystring  = require 'spec.querystring'
 local url          = require 'socket.url' -- provided by luasocket
 
+require 'spec.assert_contains'
+
 local function same(t1,t2)
   local tt1, tt2 = type(t1), type(t2)
   if tt1 ~= tt2 then return false end
