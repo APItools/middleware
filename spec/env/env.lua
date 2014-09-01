@@ -1,5 +1,4 @@
 local inspect      = require 'spec.inspect'
-local xml          = require 'lxp'
 local http         = require 'spec.env.http'
 local sha          = require 'spec.env.sha'
 local bucket       = require 'spec.env.bucket'
@@ -7,7 +6,9 @@ local Console      = require 'spec.env.console'
 local send         = require 'spec.env.send'
 local metric       = require 'spec.env.metric'
 
-local mime         = require 'mime' -- provided by luasocket
+local xml          = require 'lxp'   -- luarocks install LuaExpat
+local cjson        = require 'cjson' -- luarocks install cjson
+local mime         = require 'mime'  -- luarocks install luasocket
 
 local env = {}
 
