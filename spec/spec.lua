@@ -96,21 +96,20 @@ spec.request = function(req)
   return req
 end
 
-spec.next_middleware = function(f)
-  local environment = env.new(spec)
-
+spec.next_middleware = function(next_middleware)
   return spy.new(function()
-    local sandboxed_f = sandbox.protect(f, {env = environment})
-    return complete_response(sandboxed_f())
+    return complete_response(next_middleware())
   end)
 end
 
-spec.reset = function()
+spec.prepare = function(middleware_f)
   for k,v in pairs(spec) do
     if type(v) ~= 'function' then spec[k] = nil end
   end
-end
 
-spec.reset()
+  local environment = env.new(spec)
+
+  return sandbox.protect(middleware_f, {env = environment})
+end
 
 return spec

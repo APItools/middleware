@@ -1,9 +1,10 @@
 local spec  = require 'spec.spec'
-local alert = require '404-alert.404_alert'
+local raw_alert = require '404-alert.404_alert'
 
 describe("404 alert", function()
+  local alert
   before_each(function()
-    spec.reset()
+    alert = spec.prepare(raw_alert)
   end)
 
   describe("when the status is not 404", function()
@@ -17,7 +18,7 @@ describe("404 alert", function()
       local response = alert(request, next_middleware)
       assert.contains(response, {status = 200, body = 'ok'})
 
-      assert.spy(next_middleare).was_called()
+      assert.spy(next_middleware).was_called()
       assert.equal(#spec.sent.emails, 0)
       assert.equal(#spec.bucket.middleware, 0)
     end)
@@ -32,27 +33,28 @@ describe("404 alert", function()
       end)
 
       local response = alert(request, next_middleware)
-      assert.spy(next_middleare).was_called()
+      assert.spy(next_middleware).was_called()
       assert.contains(response, {status = 404, body = 'not ok'})
 
-      assert.thruthy(spec.bucket.middleware.last_mail)
+      assert.truthy(spec.bucket.middleware.last_mail)
 
       local last_email = spec.sent.emails.last
       assert.equal('YOUR-MAIL-HERE@gmail.com', last_email.to)
       assert.equal('A 404 has ocurred', last_email.subject)
-      assert.equal('a 404 error happened in http://localhost/ see full trace: <trace_link>', last_email.body)
+      assert.equal('a 404 error happened in http://localhost/ see full trace: <trace_link>', last_email.message)
     end)
 
     it("does not send two emails when called twice in rapid succession", function()
       local request         = spec.request({method = 'GET', uri = '/'})
       local next_middleware = spec.next_middleware(function()
         assert.contains(request, {method = 'GET', uri = '/'})
-        return {status = 200, body = 'ok'}
+        return {status = 404, body = 'not ok'}
       end)
 
       alert(request, next_middleware)
       alert(request, next_middleware) -- twice
-      assert.spy(next_middleare).was_called(2)
+      assert.spy(next_middleware).was_called(2)
+
 
       assert.equal(1, #spec.sent.emails)
     end)

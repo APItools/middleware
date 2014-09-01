@@ -38,16 +38,18 @@ end
 
 ----------------------------------------
 
-local function makeDotMethod(bucket, name)
+local function bucketIndex(bucket, name)
   local method = Bucket_methods[name]
   if method then
     local f = function(...) return method(bucket, ...) end
     rawset(bucket, name, f)
     return f
+  else
+    return bucket.values[name]
   end
 end
 
-local Bucket_mt = { __index = makeDotMethod }
+local Bucket_mt = { __index = bucketIndex }
 
 function Bucket.new()
   return setmetatable({values = {}}, Bucket_mt)
