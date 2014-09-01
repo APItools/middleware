@@ -16,9 +16,10 @@ describe("404 alert", function()
       end)
 
       local response = alert(request, next_middleware)
-      assert.contains(response, {status = 200, body = 'ok'})
 
       assert.spy(next_middleware).was_called()
+      assert.contains(response, {status = 200, body = 'ok'})
+
       assert.equal(#spec.sent.emails, 0)
       assert.equal(#spec.bucket.middleware, 0)
     end)
@@ -33,10 +34,13 @@ describe("404 alert", function()
       end)
 
       local response = alert(request, next_middleware)
+
       assert.spy(next_middleware).was_called()
       assert.contains(response, {status = 404, body = 'not ok'})
 
       assert.truthy(spec.bucket.middleware.last_mail)
+
+      assert.equal(#spec.sent.emails, 1)
 
       local last_email = spec.sent.emails.last
       assert.equal('YOUR-MAIL-HERE@gmail.com', last_email.to)
