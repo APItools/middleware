@@ -16,7 +16,7 @@ function send.new(spec)
   instance.mail = instance.email
 
   instance.event = function(ev)
-    sent.events[#send.events + 1] = ev
+    sent.events[#sent.events + 1] = ev
     sent.events.last = ev
   end
 

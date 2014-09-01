@@ -12,6 +12,6 @@ test:
 check_sources:
 	luacheck -q -a $(source_files) --globals - $(pipeline_globals)
 check_specs:
-	luacheck -q -a $(specs) --globals - describe it pending $(pipeline_globals)
+	luacheck -q -a $(specs) --globals - describe it pending before_each $(pipeline_globals)
 
 
