@@ -1,16 +1,18 @@
-local expect  = require 'spec.expect'
-local cors    = require 'cors.cors'
-
+local spec      = require 'spec.spec'
+local raw_cors  = require 'cors.cors'
 
 describe("CORS", function()
   it("adds a header", function()
-      local request           = { method = 'GET', uri = '/'}
-      local backend_response  = { status = 200, body = 'ok' }
-      local expected_response = { status = 200, body = 'ok', headers = {['Access-Control-Allow-Origin'] = "http://domain1.com http://domain2.com"}}
+    local cors            = spec.prepare(raw_cors)
+    local request         = spec.request({ method = 'GET', uri = '/'})
+    local next_middleware = spec.next_middleware(function()
+      assert.contains(request, { method = 'GET', uri = '/'})
+      return {status = 200, body = 'ok'}
+    end)
 
-      expect(cors):called_with(request, backend_response)
-        :to_pass(request)
-        :to_receive(backend_response)
-        :to_return(expected_response)
+    local response = cors(request, next_middleware)
+
+    assert.spy(next_middleware).was_called()
+    assert.contains(response, {status = 200, body = 'ok', headers = {['Access-Control-Allow-Origin'] = "http://domain1.com http://domain2.com"}})
   end)
 end)
