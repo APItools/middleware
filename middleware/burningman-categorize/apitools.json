@@ -2,6 +2,7 @@
     "name": "Burningman categorize events",
     "description": "Categorize events by type",
     "files": ["burningman_categorize.lua"],
+    "spec": ["burningman_categorize_spec.lua"],
     "author" : "Picsoung",
     "email" : "nicolas@3scale.net",
     "github_user" : "Picsoung",
