@@ -2,6 +2,7 @@
   "name": "Bicing Stations Distance",
   "description": "Calculates air distance to Barcelona Bicing station from given point and returns stations ordered by that distance.",
   "files": ["bicing_distance.lua"],
+  "spec": ["bicing_distance_spec.lua"],
   "author": "mikz",
   "github_user" : "mikz",
   "email": "michal@3scale.net",
