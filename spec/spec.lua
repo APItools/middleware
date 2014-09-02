@@ -31,4 +31,14 @@ spec.middleware = function(path)
   return sandboxed_f()
 end
 
+spec.mock_http = function(request, response)
+  local mocks = spec.http_mocks or {}
+  spec.http_mocks = mocks
+
+  mocks[#mocks + 1] = {
+    request = http_utils.complete_request(request),
+    response = http_utils.complete_response(response)
+  }
+end
+
 return spec

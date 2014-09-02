@@ -27,6 +27,7 @@ function env.new(spec)
 
   local trace = { link = "<trace_link>" }
 
+  local h = http.new(spec)
   local b = bucket.new(spec)
   local s = send.new(spec)
   local m = metric.new(spec)
@@ -40,14 +41,14 @@ function env.new(spec)
     log               = log,
     base64            = base64,
     hmac              = hmac,
-    http              = safe_http,
     time              = time,
     trace             = trace,
     json              = cjson,
     xml               = xml,
+    http              = h,
     bucket            = b,
     send              = s,
-    metric            = m,
+    metric            = m
   }
 
 end
