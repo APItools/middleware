@@ -2,6 +2,7 @@
   "name": "Bicing Walking Distance",
   "description": "Gets walking distance to Barcelona Bicing stations from given point. Uses Google Maps.",
   "files": ["bicing_walking_distance.lua"],
+  "spec": ["bicing_walking_distance_spec.lua"],
   "author": "mikz",
   "github_user" : "mikz",
   "email": "michal@3scale.net",
