@@ -16,12 +16,11 @@ return function(request, next_middleware)
   local fire={} --fire
   local food ={} --food
   local performances ={} --perf
-  
-  local dataInfo ={}
-  
+
+
   for i=1,#events do
     local currentEvent = events[i]
-    
+
     if(currentEvent.category=='cere') then
       table.insert(ceremonies,currentEvent)
     elseif (currentEvent.category=='prty') then
@@ -48,37 +47,38 @@ return function(request, next_middleware)
       table.insert(performances,currentEvent)
     end
   end
-  
-  dataInfo.nb_events = #events
-  dataInfo.nb_parties = #parties
-  dataInfo.nb_workshops = #workshops
-  dataInfo.nb_ceremonies = #ceremonies
-  dataInfo.nb_cares = #cares
-  dataInfo.nb_adults = #adults
-  dataInfo.nb_games = #games
-  dataInfo.nb_food = #food
-  dataInfo.nb_fire = #fire
-  dataInfo.nb_performances = #performances
-  dataInfo.nb_parades = #parades
-  dataInfo.nb_kids = #kids
-  dataInfo.nb_uncategorized = #nocategory
-  
-  local newresponse ={}
-  newresponse.parties = parties
-  newresponse.workshops = workshops
-  newresponse.ceremonies = ceremonies
-  newresponse.cares = cares
-  newresponse.adults = adults
-  newresponse.games = games
-  newresponse.food = food
-  newresponse.fire = fire
-  newresponse.performances = performances
-  newresponse.parades = parades
-  newresponse.kids = kids
-  newresponse.uncategorized = nocategory
-  newresponse.datainfo = dataInfo
-  
-  response.body = json.encode(newresponse)
-  
-  return next_middleware()
+
+  local datainfo ={}
+  datainfo.nb_events = #events
+  datainfo.nb_parties = #parties
+  datainfo.nb_workshops = #workshops
+  datainfo.nb_ceremonies = #ceremonies
+  datainfo.nb_cares = #cares
+  datainfo.nb_adults = #adults
+  datainfo.nb_games = #games
+  datainfo.nb_food = #food
+  datainfo.nb_fire = #fire
+  datainfo.nb_performances = #performances
+  datainfo.nb_parades = #parades
+  datainfo.nb_kids = #kids
+  datainfo.nb_uncategorized = #nocategory
+
+  local info = {}
+  info.parties = parties
+  info.workshops = workshops
+  info.ceremonies = ceremonies
+  info.cares = cares
+  info.adults = adults
+  info.games = games
+  info.food = food
+  info.fire = fire
+  info.performances = performances
+  info.parades = parades
+  info.kids = kids
+  info.uncategorized = nocategory
+  info.datainfo = datainfo
+
+  response.body = json.encode(info)
+
+  return response
 end
