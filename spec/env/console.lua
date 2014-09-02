@@ -1,4 +1,4 @@
-local inspect = require 'spec.inspect'
+local inspect = require 'spec.env.inspect'
 
 local Console = {}
 

@@ -1,4 +1,4 @@
-local inspect      = require 'spec.inspect'
+local inspect      = require 'spec.env.inspect'
 local http         = require 'spec.env.http'
 local sha          = require 'spec.env.sha'
 local bucket       = require 'spec.env.bucket'

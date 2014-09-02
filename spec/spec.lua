@@ -1,7 +1,6 @@
 require 'spec.assert_contains'
 
 local env          = require 'spec.env.env'
-local inspect      = require 'spec.inspect'
 local sandbox      = require 'spec.sandbox'
 local http_utils   = require 'spec.env.http_utils'
 
