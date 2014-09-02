@@ -102,14 +102,18 @@ spec.next_middleware = function(next_middleware)
   end)
 end
 
-spec.prepare = function(middleware_f)
+spec.middleware = function(path)
   for k,v in pairs(spec) do
     if type(v) ~= 'function' then spec[k] = nil end
   end
 
   local environment = env.new(spec)
 
-  return sandbox.protect(middleware_f, {env = environment})
+  path = 'middleware/' .. path
+
+  local loaded_f = assert(loadfile(path))
+  local sandboxed_f = sandbox.protect(loaded_f, {env = environment})
+  return sandboxed_f()
 end
 
 return spec
