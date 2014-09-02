@@ -1,9 +1,8 @@
 local spec      = require 'spec.spec'
-local raw_cors  = require 'cors.cors'
 
 describe("CORS", function()
   it("adds a header", function()
-    local cors            = spec.prepare(raw_cors)
+    local cors            = spec.middleware('cors/cors.lua')
     local request         = spec.request({ method = 'GET', uri = '/'})
     local next_middleware = spec.next_middleware(function()
       assert.contains(request, { method = 'GET', uri = '/'})

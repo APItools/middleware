@@ -1,10 +1,9 @@
 local spec  = require 'spec.spec'
-local raw_alert = require '404-alert.404_alert'
 
 describe("404 alert", function()
   local alert
   before_each(function()
-    alert = spec.prepare(raw_alert)
+    alert = spec.middleware('404-alert/404_alert.lua')
   end)
 
   describe("when the status is not 404", function()

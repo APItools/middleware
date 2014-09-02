@@ -1,9 +1,8 @@
-local spec     = require 'spec.spec'
-local raw_add  = require 'add-keys.add_keys'
+local spec = require 'spec.spec'
 
 describe("Add keys", function()
   it("adds a header", function()
-    local add             = spec.prepare(raw_add)
+    local add             = spec.middleware('add-keys/add_keys.lua')
     local request         = spec.request({ method = 'GET', uri = '/'})
     local next_middleware = spec.next_middleware(function()
       assert.contains(request, {

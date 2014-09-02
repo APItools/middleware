@@ -1,9 +1,8 @@
 local spec        = require 'spec.spec'
-local raw_accept  = require 'accept-encoding-identity.accept-encoding-identity'
 
 describe("Accept encoding identity", function()
   it("adds a header", function()
-    local accept          = spec.prepare(raw_accept)
+    local accept          = spec.middleware('accept-encoding-identity/accept-encoding-identity.lua')
     local request         = spec.request({ method = 'GET', uri = '/'})
     local next_middleware = spec.next_middleware(function()
       assert.contains(request, {method = 'GET', uri = '/', headers = {['Accept-Encoding'] = 'identity'}})

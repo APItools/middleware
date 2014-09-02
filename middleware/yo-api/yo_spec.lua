@@ -1,10 +1,9 @@
-local spec      = require 'spec.spec'
-local raw_yo  = require 'yo-api.yo'
+local spec = require 'spec.spec'
 
 describe("yo-api", function()
   local yo
   before_each(function()
-    yo = spec.prepare(raw_yo)
+    yo = spec.middleware("yo-api/yo.lua")
   end)
 
   describe("when the uri is /", function()
