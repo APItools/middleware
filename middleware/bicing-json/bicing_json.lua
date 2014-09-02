@@ -4,7 +4,7 @@
 --
 --]]
 
-local function parse_xml(xml_string)
+local function parse_xml(xml, xml_string)
   local stations = {}
   local station
   local attribute
@@ -38,6 +38,6 @@ end
 
 return function(request, next_middleware)
   local response = next_middleware()
-  response.body = json.encode(parse_xml(response.body))
+  response.body = json.encode(parse_xml(xml, response.body))
   return response
 end

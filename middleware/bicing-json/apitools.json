@@ -2,6 +2,7 @@
   "name": "Bicing XML to JSON",
   "description": "Barcelona's Bicing API returns XML. This middleware converts it to slick JSON.",
   "files": ["bicing_json.lua"],
+  "spec": ["bicing_json_spec.lua"],
   "author": "mikz",
   "github_user" : "mikz",
   "email": "michal@3scale.net",
