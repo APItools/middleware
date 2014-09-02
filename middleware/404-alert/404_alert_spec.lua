@@ -20,7 +20,7 @@ describe("404 alert", function()
       assert.contains(response, {status = 200, body = 'ok'})
 
       assert.equal(#spec.sent.emails, 0)
-      assert.equal(#spec.bucket.middleware, 0)
+      assert.equal(#spec.bucket.middleware.get_keys(), 0)
     end)
   end)
 
