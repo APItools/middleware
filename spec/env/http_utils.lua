@@ -1,4 +1,4 @@
-local querystring  = require 'spec.querystring'
+local querystring  = require 'spec.env.querystring'
 local url          = require 'socket.url' -- provided by luasocket
 
 local http_utils = {}
