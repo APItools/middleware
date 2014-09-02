@@ -18,7 +18,8 @@ function env.new(spec)
                    encode = mime.b64 }
 
   local time =   { seconds = os.time,
-                   http    = os.time,
+                   -- avoid warnings when passing params
+                   http    = function() return os.time() end,
                    now     = os.time }
 
   local hmac = { sha256 = sha.hash256 }
