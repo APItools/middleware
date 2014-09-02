@@ -10,7 +10,12 @@ describe("yo-api", function()
     it("sends an email and a notification", function()
       local request         = spec.request({ method = 'GET', url = '/?username=peter' })
       local next_middleware = spec.next_middleware(function()
-        assert.contains(request, { method = 'GET', url = '/?username=peter', headers = {['Content-Type'] = 'application/json'}})
+        assert.contains(request, {
+          method = 'GET',
+          uri = '/',
+          query='username=peter',
+          headers = {['Content-Type'] = 'application/json'}
+        })
         return {status = 200, body = 'ok'}
       end)
 
