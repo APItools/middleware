@@ -41,4 +41,9 @@ spec.mock_http = function(request, response)
   }
 end
 
+spec.advance_time = function(seconds)
+  spec.now = spec.now or spec.time.seconds()
+  spec.now = spec.now + seconds
+end
+
 return spec
