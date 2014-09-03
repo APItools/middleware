@@ -37,7 +37,7 @@ describe("404 alert", function()
       assert.spy(next_middleware).was_called()
       assert.contains(response, {status = 404, body = 'not ok'})
 
-      assert.truthy(spec.bucket.middleware.last_mail)
+      assert.truthy(spec.bucket.middleware.get('last_mail'))
 
       assert.equal(#spec.sent.emails, 1)
 
