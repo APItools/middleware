@@ -12,13 +12,10 @@ return function (request, next_middleware)
       if expires and expires > time.now() then -- not expired yet
         -- send.event({channel = "cache", msg = "returned cached content", level = "debug", key = key, content = stored, expires = expires, now = time.now() })
         stored.headers['Expires'] = time.http(expires)
-
-        return stored
-      else
-        bucket.middleware.delete(key)
-        -- send.event({channel = "cache", msg = "NOT  cached content", level = "debug", key = key, content = stored, expires = expires, now = time.now() })
       end
+      return stored
     end
+    -- send.event({channel = "cache", msg = "NOT  cached content", level = "debug", key = key, content = stored, expires = expires, now = time.now() })
   end
 
   -- if content is not cached, do the real request & get response
