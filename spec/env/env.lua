@@ -24,29 +24,28 @@ function env.new(spec)
 
   local trace = { link = "<trace_link>" }
 
-  local h = http.new(spec)
-  local b = bucket.new(spec)
+  local t = time.new(spec)
+  local b = bucket.new(spec, t)
   local s = send.new(spec)
   local m = metric.new(spec)
-  local t = time.new(spec)
+  local h = http.new(spec)
 
   return {
 
-    console           = console,
-    inspect           = inspect,
+    console          = console,
+    inspect          = inspect,
 
-    -- just ngx.log
-    log               = log,
-    base64            = base64,
-    hmac              = hmac,
-    trace             = trace,
-    json              = cjson,
-    xml               = xml,
-    http              = h,
-    bucket            = b,
-    send              = s,
-    metric            = m,
-    time              = t
+    log              = print,
+    base64           = base64,
+    hmac             = hmac,
+    trace            = trace,
+    json             = cjson,
+    xml              = xml,
+    time             = t,
+    bucket           = b,
+    send             = s,
+    metric           = m,
+    http             = h
   }
 
 end
