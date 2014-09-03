@@ -25,7 +25,7 @@ describe("404 alert", function()
   end)
 
   describe("when the method is GET", function()
-    it("The first time, it just calls the next middleware, but sets some stuff on the middleware bucket", function()
+    it("the first time, it just calls the next middleware, but sets some stuff on the middleware bucket", function()
       local request         = spec.request({uri = '/'})
       local next_middleware = spec.next_middleware(function()
         assert.contains(request, {method = 'GET', uri = '/'})
@@ -40,7 +40,7 @@ describe("404 alert", function()
       assert.equal(type(response.headers['X-Expires']), 'number')
 
       assert.equal(#spec.bucket.middleware.get_keys(), 1)
-      local stored = spec.bucket.middleware['cache=http://localhost/']
+      local stored = spec.bucket.middleware.get('cache=http://localhost/')
 
       assert.contains(stored, {status = 200, body = 'ok', headers = {}})
       assert.equal(type(stored.headers['X-Expires']), 'number')
@@ -66,7 +66,7 @@ describe("404 alert", function()
         assert.equal(type(response1.headers['X-Expires']), 'number')
 
         assert.equal(#spec.bucket.middleware.get_keys(), 1)
-        local stored = spec.bucket.middleware['cache=http://localhost/']
+        local stored = spec.bucket.middleware.get('cache=http://localhost/')
 
         assert.contains(stored, {status = 200, body = 'ok', headers = {}})
         assert.equal(type(stored.headers['X-Expires']), 'number')
@@ -94,7 +94,7 @@ describe("404 alert", function()
         assert.equal(type(response1.headers['X-Expires']), 'number')
 
         assert.equal(#spec.bucket.middleware.get_keys(), 1)
-        local stored = spec.bucket.middleware['cache=http://localhost/']
+        local stored = spec.bucket.middleware.get('cache=http://localhost/')
 
         assert.contains(stored, {status = 200, body = 'ok', headers = {}})
         assert.equal(type(stored.headers['X-Expires']), 'number')
