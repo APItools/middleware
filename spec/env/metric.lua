@@ -13,6 +13,7 @@ function metric.new(spec)
     instance.sets[name] = value
   end
 
+  return instance
 end
 
 return metric
