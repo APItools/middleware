@@ -46,32 +46,59 @@ describe("404 alert", function()
       assert.equal(type(stored.headers['X-Expires']), 'number')
     end)
 
-    it("when called twice, returns the cached result without calling the next_middleware", function()
-      local request         = spec.request({uri = '/'})
-      local next_middleware = spec.next_middleware(function()
-        assert.contains(request, {method = 'GET', uri = '/'})
-        return {status = 200, body = 'ok'}
+    describe("when called twice", function()
+      it("returns the cached result calling next_middleware only once", function()
+        local request         = spec.request({uri = '/'})
+        local next_middleware = spec.next_middleware(function()
+          assert.contains(request, {method = 'GET', uri = '/'})
+          return {status = 200, body = 'ok'}
+        end)
+
+        local response1 = cache(request, next_middleware)
+        local response2 = cache(request, next_middleware)
+
+        assert.spy(next_middleware).was_called(1)
+
+        assert.contains(response1, {status = 200, body = 'ok', headers={}})
+        assert.equal(type(response1.headers['X-Expires']), 'number')
+
+        assert.contains(response2, {status = 200, body = 'ok', headers={}})
+        assert.equal(type(response1.headers['X-Expires']), 'number')
+
+        assert.equal(#spec.bucket.middleware.get_keys(), 1)
+        local stored = spec.bucket.middleware['cache=http://localhost/']
+
+        assert.contains(stored, {status = 200, body = 'ok', headers = {}})
+        assert.equal(type(stored.headers['X-Expires']), 'number')
       end)
 
-      local response1 = cache(request, next_middleware)
-      local response2 = cache(request, next_middleware)
+      it("forgets the cached result after a while, calling next_middleware twice", function()
+        local request         = spec.request({uri = '/'})
+        local next_middleware = spec.next_middleware(function()
+          assert.contains(request, {method = 'GET', uri = '/'})
+          return {status = 200, body = 'ok'}
+        end)
 
-      assert.spy(next_middleware).was_called(1)
+        local response1 = cache(request, next_middleware)
 
-      assert.contains(response1, {status = 200, body = 'ok', headers={}})
-      assert.equal(type(response1.headers['X-Expires']), 'number')
+        spec.advance_time(61)
 
-      assert.contains(response2, {status = 200, body = 'ok', headers={}})
-      assert.equal(type(response1.headers['X-Expires']), 'number')
+        local response2 = cache(request, next_middleware)
 
-      assert.equal(#spec.bucket.middleware.get_keys(), 1)
-      local stored = spec.bucket.middleware['cache=http://localhost/']
+        assert.spy(next_middleware).was_called(2)
 
-      assert.contains(stored, {status = 200, body = 'ok', headers = {}})
-      assert.equal(type(stored.headers['X-Expires']), 'number')
+        assert.contains(response1, {status = 200, body = 'ok', headers={}})
+        assert.equal(type(response1.headers['X-Expires']), 'number')
+
+        assert.contains(response2, {status = 200, body = 'ok', headers={}})
+        assert.equal(type(response1.headers['X-Expires']), 'number')
+
+        assert.equal(#spec.bucket.middleware.get_keys(), 1)
+        local stored = spec.bucket.middleware['cache=http://localhost/']
+
+        assert.contains(stored, {status = 200, body = 'ok', headers = {}})
+        assert.equal(type(stored.headers['X-Expires']), 'number')
+      end)
     end)
-
   end)
-
-
 end)
