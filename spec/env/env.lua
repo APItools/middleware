@@ -22,13 +22,16 @@ function env.new(spec)
 
   local console = Console.new()
 
-  local trace = { link = "<trace_link>" }
+  local trace = { link = "<trace_link>", time = 0 }
 
   local t = time.new(spec)
   local b = bucket.new(spec, t)
   local s = send.new(spec)
   local m = metric.new(spec)
   local h = http.new(spec)
+
+  spec.trace = trace
+  spec.time = t
 
   return {
 

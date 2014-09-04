@@ -11,9 +11,12 @@ spec.request = function(req)
   return http_utils.complete_request(req)
 end
 
-spec.next_middleware = function(next_middleware)
+spec.next_middleware = function(f)
   return spy.new(function()
-    return http_utils.complete_response(next_middleware())
+    local start = spec.time.now()
+    local response = http_utils.complete_response(f())
+    spec.trace.time = spec.time.now() - start
+    return response
   end)
 end
 
