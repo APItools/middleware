@@ -2,6 +2,7 @@
     "name": "xml-to-json",
     "description": "Transforms an xml response into a JSON response",
     "files": ["xml-to-json.lua"],
+    "spec": ["xml-to-json_spec.lua"],
     "author" : "3scale",
     "email" : "apitools@apitools.com",
     "github_user" : "apitools",
