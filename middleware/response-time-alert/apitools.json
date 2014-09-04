@@ -2,6 +2,7 @@
     "name": "Response Time Alert",
     "description": "Sends an email in case a call takes more than expected",
     "files": ["response_time_alert.lua"],
+    "spec": ["response_time_alert_spec.lua"],
     "author" : "3scale",
     "email" : "apitools@apitools.com",
     "github_user" : "apitools",
