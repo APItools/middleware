@@ -1,4 +1,5 @@
 require 'spec.assert_contains'
+require 'spec.assert_difference'
 
 local env          = require 'spec.env.env'
 local sandbox      = require 'spec.sandbox'
