@@ -22,6 +22,6 @@ install:
   - cd /tmp/luarocks-$LUAROCKS_VERSION
   - ./configure --with-lua=$OPENRESTY/luajit --with-lua-include=$OPENRESTY/luajit/include/luajit-2.1 --with-lua-lib=$OPENRESTY/lualib
   - make && sudo make install
-  - sudo luarocks install luacheck
+  - sudo luarocks install luacheck busted luasocket LuaExpat cjson
   - cd $TRAVIS_BUILD_DIR && bundle install
-script: "bundle exec rake && make"
+script: "./run_tests.sh"
