@@ -24,7 +24,7 @@ install:
   - make && sudo make install
   - sudo luarocks install luacheck &&
     sudo luarocks install busted &&
-    sudo luarocks install cjson &&
+    sudo luarocks install lua-cjson &&
     sudo luarocks install luasocket &&
     sudo luarocks install LuaExpat
   - cd $TRAVIS_BUILD_DIR && bundle install

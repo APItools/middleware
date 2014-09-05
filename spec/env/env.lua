@@ -8,7 +8,7 @@ local metric       = require 'spec.env.metric'
 local time         = require 'spec.env.time'
 
 local xml          = require 'lxp'   -- luarocks install LuaExpat
-local cjson        = require 'cjson' -- luarocks install cjson
+local cjson        = require 'cjson' -- luarocks install lua-cjson
 local mime         = require 'mime'  -- luarocks install luasocket
 
 local env = {}
