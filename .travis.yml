@@ -24,3 +24,4 @@ install:
   - make && sudo make install
   - sudo luarocks install luacheck
   - cd $TRAVIS_BUILD_DIR && bundle install
+script: "bundle exec rake && make"
