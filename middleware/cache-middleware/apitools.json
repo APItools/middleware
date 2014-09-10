@@ -2,6 +2,7 @@
     "name": "Cache",
     "description": "Caches responses so you don't have to care about rate limiting!",
     "files": ["cache.lua"],
+    "spec": ["cache_spec.lua"],
     "author" : "3scale",
     "email" : "apitools@apitools.com",
     "github_user" : "apitools",

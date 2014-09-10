@@ -2,6 +2,7 @@
     "name": "CORS",
     "description": "Cross Origin Resource Sharing allows you to use API directly from the browser",
     "files": ["cors.lua"],
+    "spec": ["cors_spec.lua"],
     "author" : "3scale",
     "email" : "apitools@apitools.com",
     "github_user" : "apitools",

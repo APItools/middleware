@@ -5,11 +5,11 @@ return function (request, next_middleware)
 
   -- concatenate by ':'
   local str = api_key .. ':' .. api_secret
-  console.log(str)
+  -- console.log(str)
 
   -- generate base64 string
   local auth_header = "Basic ".. base64.encode(str)
-  console.log(auth_header)
+  -- console.log(auth_header)
 
   -- headers to pass to /oauth2/ endpoint
   local headers_val ={}
@@ -20,7 +20,7 @@ return function (request, next_middleware)
   -- call to get access_token
   local body = http.simple{method='POST',url='https://api.twitter.com/oauth2/token',headers=headers_val, body={grant_type="client_credentials"}}
   local resp = json.decode(body)
-  console.log("access_token",resp.access_token)
+  -- console.log("access_token",resp.access_token)
 
 
   -- pass the access_token to auth call

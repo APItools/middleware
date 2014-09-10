@@ -16,14 +16,14 @@ return function(request, next_middleware)
     local body = request.body
 
     local yoUsername = split(body,'=')[2]
-    console.log(yoUsername)
+    -- console.log(yoUsername)
 
     request.body = '{"username":"'.. string.upper(yoUsername) .. '","api_token":"' .. apiToken .. '"}'
 
   -- endpoint to Yo all is called
-    elseif request.uri =='/yoall/' then
+  elseif request.uri =='/yoall/' then
 
-      request.body = '{"api_token":"' .. apiToken .. '"}'
+    request.body = '{"api_token":"' .. apiToken .. '"}'
 
   -- callback url is called
   elseif request.uri == '/' then
@@ -31,7 +31,7 @@ return function(request, next_middleware)
     send.notification({msg="new subscriber " .. request.args.username, level='info'})
   end
 
-  console.log(request.body)
+  -- console.log(request.body)
 
   return next_middleware()
 end

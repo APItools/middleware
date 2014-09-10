@@ -2,6 +2,7 @@
     "name": "404 Alert",
     "description": "Sends an email in case a call returns a 404",
     "files": ["404_alert.lua"],
+    "spec": ["404_alert_spec.lua"],
     "author" : "3scale",
     "email" : "apitools@apitools.com",
     "github_user" : "apitools",

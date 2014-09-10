@@ -2,6 +2,7 @@
     "name": "add-args",
     "description": "adds a paramter",
     "files": ["add_args.lua"],
+    "spec": ["add_args_spec.lua"],
     "author" : "3scale",
     "email" : "apitools@apitools.com",
     "github_user" : "apitools",

@@ -2,6 +2,7 @@
     "name": "yo-api",
     "description": "Send YOs",
     "files": ["yo.lua"],
+    "spec": ["yo_spec.lua"],
     "author" : "Picsoung",
     "email" : "nicolas@3scale.net",
     "github_user" : "Picsoung",

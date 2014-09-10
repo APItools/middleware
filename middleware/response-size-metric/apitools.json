@@ -2,6 +2,7 @@
     "name": "response-size-metric",
     "description": "Adds a metric called 'size', with the response size. This metric can be used in the analytics tab to show graphics.",
     "files": ["response-size-metric.lua"],
+    "spec": ["response-size-metric_spec.lua"],
     "author" : "3scale",
     "email" : "apitools@apitools.com",
     "github_user" : "apitools",

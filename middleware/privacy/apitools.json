@@ -2,6 +2,7 @@
     "name": "Privacy",
     "description": "All-purpose middleware. Customize to adjust it to your app's privacy concerns",
     "files": ["privacy.lua"],
+    "spec": ["privacy_spec.lua"],
     "author" : "3scale",
     "email" : "apitools@apitools.com",
     "github_user" : "apitools",
