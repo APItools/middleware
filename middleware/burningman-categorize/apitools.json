@@ -8,5 +8,5 @@
     "github_user" : "Picsoung",
     "version" : "1.0.0",
     "categories" : ["APIs"],
-    "endpoints": ["*"]
+    "endpoints": ["http://playaevents.burningman.com/api/0.2/"]
 }
