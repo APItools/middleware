@@ -8,5 +8,5 @@
     "github_user" : "Picsoung",
     "version" : "1.0.0",
     "categories" : ["APIs"],
-    "endpoints": ["*"]
+    "endpoints": ["http://bayareabikeshare.com/stations.json","http://www.citibikenyc.com/stations/json"]
 }
