@@ -1,0 +1,12 @@
+{
+    "name": "Uber - Price Alert",
+    "description": "Get an alert when ride price reach a limit",
+    "files": ["uber_pricealert.lua"],
+    "spec": ["uber_pricealert_spec.lua"],
+    "author" : "Picsoung",
+    "email" : "nicolas@3scale.net",
+    "github_user" : "Picsoung",
+    "version" : "1.0.0",
+    "categories" : ["APIs"],
+    "endpoints": ["https://api.uber.com/v1/"]
+}
