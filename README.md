@@ -15,10 +15,18 @@ bundle
 rake middleware
 ```
 
-## TODO
+## Testing Middleware
 
-* We would like to add tests for the middlewares.
-* Integrate [luacheck](https://github.com/mpeterv/luacheck)
+When you generate a middleware by `rake middleware` a spec will be created for you.
+Then you can run all the tests by running `make`.
+
+### Test Dependencies
+To run all the tests you need: `lua` (or `luajit`) with `luarocks`.
+Then you can install dependencies via `make dependencies`
+
+### OSX
+If you have homebrew, you can just install luarocks lika `brew install luarocks --with-luajit`
+and run `make dependencies`.
 
 ## Contributing
 
