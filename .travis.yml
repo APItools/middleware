@@ -17,8 +17,8 @@ install:
   - wget -qO- http://openresty.org/download/ngx_openresty-$OPENRESTY_VERSION.tar.gz | tar xvz -C /tmp/
   - wget -qO- http://luarocks.org/releases/luarocks-$LUAROCKS_VERSION.tar.gz | tar xvz -C /tmp/
   - cd /tmp/ngx_openresty-$OPENRESTY_VERSION && ./configure --prefix=$OPENRESTY && sudo make install
-  - sudo ln -sf /usr/local/openresty/luajit/bin/luajit-2.1.0-alpha /usr/local/openresty/luajit/bin/lua
-  - sudo ln -sf /usr/local/openresty/luajit/bin/lua /usr/local/bin/lua
+  - sudo ln -sf $OPENRESTY/luajit/bin/luajit-2.1.0-alpha $OPENRESTY/luajit/bin/lua
+  - sudo ln -sf $OPENRESTY/luajit/bin/lua /usr/local/bin/lua
   - cd /tmp/luarocks-$LUAROCKS_VERSION
   - ./configure --with-lua=$OPENRESTY/luajit --with-lua-include=$OPENRESTY/luajit/include/luajit-2.1 --with-lua-lib=$OPENRESTY/lualib
   - make && sudo make install
