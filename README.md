@@ -26,7 +26,7 @@ To run all the tests you need: `lua` (5.1) (or `luajit`) with `luarocks`.
 Then you can install dependencies via `make dependencies`.
 
 If you can't get it installed on your machine, you can use vagrant.
-Run `make vagrant` to create vagrant machine and ssh into it.
+Run `make vagrant` to automatically execute all tests in vagrant machine.
 
 ### OSX
 If you have homebrew, you can just install luarocks lika `brew install luarocks --with-luajit`
