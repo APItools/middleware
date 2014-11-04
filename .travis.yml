@@ -23,6 +23,6 @@ install:
   - ./configure --with-lua=$OPENRESTY/luajit --with-lua-include=$OPENRESTY/luajit/include/luajit-2.1 --with-lua-lib=$OPENRESTY/lualib
   - make && sudo make install
   - cd $TRAVIS_BUILD_DIR
-  - sudo make dependencies
   - bundle install
-script: "./run_tests.sh"
+  - make dependencies
+script: make

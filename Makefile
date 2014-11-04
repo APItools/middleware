@@ -5,14 +5,19 @@ source_files      = $(filter-out %_spec.lua, $(all_lua_files))
 specs             = $(wildcard middleware/**/*_spec.lua)
 pipeline_globals  = console inspect log base64 hmac http bucket send time metric trace json xml
 MIDDLEWARE = $(patsubst middleware/%,%,$(wildcard middleware/*))
-INSTALLED = $(foreach dep,$(DEPENDENCIES),$(findstring $(dep),$(shell luarocks list $(dep) --porcelain)))
+INSTALLED = $(foreach dep,$(DEPENDENCIES),$(findstring $(dep),$(shell luarocks list $(dep) --porcelain 2> /dev/null)))
 MISSING = $(filter-out $(INSTALLED), $(DEPENDENCIES))
 
 LUA_BINARIES := lua5.1 lua-5.1 luajit lua
 LUA := $(firstword $(foreach bin,$(LUA_BINARIES),$(shell which $(bin))))
+LUAROCKS := $(shell which luarocks)
+LUAROCKS_VERSION := $(shell $(LUAROCKS) 2> /dev/null | grep -o 'LuaRocks [0-9]\.[0-9]\.[0-9]')
+
+PATH := $(HOME)/.luarocks/bin:$(PATH)
 
 ifneq (,$(LUA))
-LUA_VERSION := $(shell $(LUA) -v | awk '{ print $$1, $$2}')
+# Because Lua 5.1 outputs the version to stderr, where Luajit to stdout
+LUA_VERSION := $(shell $(LUA) -v 2>&1 | awk '{ print $$1, $$2}')
 endif
 
 .PHONY: all test check_specs check_sources middleware
@@ -20,6 +25,17 @@ endif
 
 all: check test
 check: check_sources check_specs check_apitools
+
+luarocks:
+ifeq (,$(LUAROCKS))
+	@echo No luarocks found
+	exit 1
+endif
+	@echo $(LUAROCKS_VERSION)
+ifeq (,$(findstring 2.2,$(LUAROCKS_VERSION)))
+	@echo "Need LuaRocks 2.2)"
+	exit 1
+endif
 
 lua:
 ifndef LUA_VERSION
@@ -43,16 +59,15 @@ ifndef LUA_FOUND
 	exit 1
 endif
 
-
-test: lua
+test: lua dependencies
 	busted -v middleware
 	@echo
 
-check_sources: lua
+check_sources: lua luacheck
 	luacheck -q -a $(source_files) --globals - $(pipeline_globals)
 	@echo
 
-check_specs: lua
+check_specs: lua luacheck
 	luacheck -q -a $(specs) --globals - describe it pending before_each $(pipeline_globals)
 	@echo
 
@@ -71,7 +86,7 @@ $(MIDDLEWARE): % :
 
 $(INSTALLED) : % :
 	@echo $@ already installed
-$(MISSING) : % :
-	luarocks install $@
+$(MISSING) : % : luarocks
+	luarocks install --local $@
 
 dependencies: $(DEPENDENCIES)
