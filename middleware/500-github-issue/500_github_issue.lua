@@ -1,7 +1,12 @@
+-- taken from lapis
+-- see https://github.com/leafo/lapis/blob/v1.0.6/lapis/util.lua#L108-L110
+local function slugify(str)
+  return (str:gsub("[%s_]+", "-"):gsub("[^%w%-]+", ""):gsub("-+", "-")):lower()
+end
+
 return function(request, next_middleware)
   local github_access_token = 'GITHUB_ACCESS_TOKEN'
-  local github_owner = 'GITHUB_OWNER'
-  local github_repo = 'GITHUB_REPO'
+  local github_repo_full_name = 'GITHUB_REPO_FULL_NAME'
 
   local response = next_middleware()
 
@@ -10,10 +15,10 @@ return function(request, next_middleware)
     send.notification({msg = response.body, level = 'error'})
 
     -- response body is used as key in the middleware bucket
-    local issue_key = response.body:gsub(' ', '-')
+    local issue_key = slugify(response.body)
     local issue_number = bucket.middleware.get(issue_key)
 
-    local request_url = 'https://api.github.com/repos/' .. github_owner .. '/' .. github_repo .. '/issues'
+    local request_url = 'https://api.github.com/repos/' .. github_repo_full_name .. '/issues'
     local request_headers = {Authorization = 'token ' .. github_access_token}
 
     if issue_number == nil then

@@ -35,7 +35,7 @@ describe('500-github-issue', function()
 
         spec.mock_http({
           method   = 'POST',
-          url      = 'https://api.github.com/repos/GITHUB_OWNER/GITHUB_REPO/issues',
+          url      = 'https://api.github.com/repos/GITHUB_REPO_FULL_NAME/issues',
           body     = 'title=an+error+message',
           headers  = {Authorization = 'token GITHUB_ACCESS_TOKEN'}
         }, {
@@ -65,7 +65,7 @@ describe('500-github-issue', function()
 
         spec.mock_http({
           method   = 'POST',
-          url      = 'https://api.github.com/repos/GITHUB_OWNER/GITHUB_REPO/issues',
+          url      = 'https://api.github.com/repos/GITHUB_REPO_FULL_NAME/issues',
           body     = 'title=an+error+message',
           headers  = {Authorization = 'token GITHUB_ACCESS_TOKEN'}
         }, {
@@ -74,7 +74,7 @@ describe('500-github-issue', function()
 
         spec.mock_http({
           method   = 'PATCH',
-          url      = 'https://api.github.com/repos/GITHUB_OWNER/GITHUB_REPO/issues/1',
+          url      = 'https://api.github.com/repos/GITHUB_REPO_FULL_NAME/issues/1',
           body     = 'state=open',
           headers  = {Authorization = 'token GITHUB_ACCESS_TOKEN'}
         }, {
