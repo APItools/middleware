@@ -21,7 +21,7 @@ install:
   - sudo ln -sf /usr/local/openresty/luajit/bin/lua /usr/local/bin/lua
   - cd /tmp/luarocks-$LUAROCKS_VERSION
   - ./configure --with-lua=$OPENRESTY/luajit --with-lua-include=$OPENRESTY/luajit/include/luajit-2.1 --with-lua-lib=$OPENRESTY/lualib
-  - make && sudo make install
+  - make build && sudo make install
   - cd $TRAVIS_BUILD_DIR
   - bundle install
   - make dependencies

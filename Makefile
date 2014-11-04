@@ -1,4 +1,4 @@
-DEPENDENCIES = luasec luacheck busted lua-cjson luasocket luaexpat
+DEPENDENCIES = luasec luabitop luacheck busted lua-cjson luasocket luaexpat
 
 all_lua_files     = $(wildcard middleware/**/*.lua)
 source_files      = $(filter-out %_spec.lua, $(all_lua_files))
@@ -20,11 +20,11 @@ ifneq (,$(LUA))
 LUA_VERSION := $(shell $(LUA) -v 2>&1 | awk '{ print $$1, $$2}')
 endif
 
-.PHONY: all test check_specs check_sources middleware
+.PHONY: all test check_specs check_sources middleware dependencies install apitools
 .DEFAULT_GOAL: all
 
-all: check test
-check: check_sources check_specs check_apitools
+all: check test apitools
+check: check_sources check_specs
 
 luarocks:
 ifeq (,$(LUAROCKS))
@@ -59,7 +59,7 @@ ifndef LUA_FOUND
 	exit 1
 endif
 
-test: lua dependencies
+test: lua install
 	busted -v middleware
 	@echo
 
@@ -71,7 +71,7 @@ check_specs: lua luacheck
 	luacheck -q -a $(specs) --globals - describe it pending before_each $(pipeline_globals)
 	@echo
 
-check_apitools:
+apitools:
 	bundle exec rake test
 	@echo
 
@@ -85,8 +85,11 @@ $(MIDDLEWARE): % :
 	busted -v middleware/$@
 
 $(INSTALLED) : % :
-	@echo $@ already installed
+	$(if $(ECHO),@echo $@ already installed)
 $(MISSING) : % : luarocks
 	luarocks install --local $@
 
-dependencies: $(DEPENDENCIES)
+install: $(DEPENDENCIES)
+
+dependencies: ECHO := 1
+dependencies: install
