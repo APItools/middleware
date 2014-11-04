@@ -20,9 +20,13 @@ rake middleware
 When you generate a middleware by `rake middleware` a spec will be created for you.
 Then you can run all the tests by running `make`.
 
+
 ### Test Dependencies
-To run all the tests you need: `lua` (or `luajit`) with `luarocks`.
-Then you can install dependencies via `make dependencies`
+To run all the tests you need: `lua` (5.1) (or `luajit`) with `luarocks`.
+Then you can install dependencies via `make dependencies`.
+
+If you can't get it installed on your machine, you can use vagrant.
+Run `make vagrant` to create vagrant machine and ssh into it.
 
 ### OSX
 If you have homebrew, you can just install luarocks lika `brew install luarocks --with-luajit`
