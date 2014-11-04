@@ -1,1 +1,0 @@
-make && bundle exec rake
