@@ -1,12 +1,8 @@
-DEPENDENCIES = luasec luabitop luacheck busted lua-cjson luasocket luaexpat
-
 all_lua_files     = $(wildcard middleware/**/*.lua)
 source_files      = $(filter-out %_spec.lua, $(all_lua_files))
 specs             = $(wildcard middleware/**/*_spec.lua)
 pipeline_globals  = console inspect log base64 hmac http bucket send time metric trace json xml
 MIDDLEWARE = $(patsubst middleware/%,%,$(wildcard middleware/*))
-INSTALLED = $(foreach dep,$(DEPENDENCIES),$(findstring $(dep),$(shell luarocks list $(dep) --porcelain 2> /dev/null)))
-MISSING = $(filter-out $(INSTALLED), $(DEPENDENCIES))
 
 LUA_BINARIES := lua5.1 lua-5.1 luajit lua
 LUA := $(firstword $(foreach bin,$(LUA_BINARIES),$(shell which $(bin))))
@@ -26,7 +22,7 @@ endif
 all: check test apitools
 check: check_sources check_specs
 
-luarocks:
+luarocks: lua
 ifeq (,$(LUAROCKS))
 	@echo No luarocks found
 	exit 1
@@ -59,15 +55,15 @@ ifndef LUA_FOUND
 	exit 1
 endif
 
-test: lua install
+test: busted
 	busted -v middleware
 	@echo
 
-check_sources: lua luacheck
+check_sources: luacheck
 	luacheck -q -a $(source_files) --globals - $(pipeline_globals)
 	@echo
 
-check_specs: lua luacheck
+check_specs: luacheck
 	luacheck -q -a $(specs) --globals - describe it pending before_each $(pipeline_globals)
 	@echo
 
@@ -78,18 +74,17 @@ apitools:
 vagrant:
 	vagrant up
 	vagrant ssh -c 'cd /vagrant && make'
-	vagrant halt
+	- vagrant halt
 
 middleware: $(MIDDLEWARE)
 $(MIDDLEWARE): % :
 	busted -v middleware/$@
 
-$(INSTALLED) : % :
-	$(if $(ECHO),@echo $@ already installed)
-$(MISSING) : % : luarocks
-	luarocks install --local $@
+luacheck: install
+busted: install
 
-install: $(DEPENDENCIES)
+install: luarocks
+	luarocks make --local
 
 dependencies: ECHO := 1
 dependencies: install
