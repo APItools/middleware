@@ -1,13 +1,37 @@
--- taken from lapis
+local github_access_token = 'GITHUB_ACCESS_TOKEN'
+local github_repo_full_name = 'GITHUB_REPO_FULL_NAME'
+
+-- taken from leafo/lapis
 -- see https://github.com/leafo/lapis/blob/v1.0.6/lapis/util.lua#L108-L110
 local function slugify(str)
   return (str:gsub("[%s_]+", "-"):gsub("[^%w%-]+", ""):gsub("-+", "-")):lower()
 end
 
-return function(request, next_middleware)
-  local github_access_token = 'GITHUB_ACCESS_TOKEN'
-  local github_repo_full_name = 'GITHUB_REPO_FULL_NAME'
+-- makes an authenticated request to GitHub API
+local function github_request(method, path, body)
+  local request = {
+    method = method,
+    url = 'https://api.github.com' .. path,
+    headers = {Authorization = 'token ' .. github_access_token},
+    body = body
+  }
+  local response_body = http.simple(request)
+  return json.decode(response_body)
+end
 
+-- makes a request to GitHub API to create a new issue
+local function create_github_issue(body)
+  local path = '/repos/' .. github_repo_full_name .. '/issues'
+  return github_request('POST', path, body)
+end
+
+-- makes a request to GitHub API to update an issue
+local function update_github_issue(issue_number, body)
+  local path = '/repos/' .. github_repo_full_name .. '/issues/' .. issue_number
+  return github_request('PATCH', path, body)
+end
+
+return function(request, next_middleware)
   local response = next_middleware()
 
   if response.status == 500 then
@@ -18,22 +42,15 @@ return function(request, next_middleware)
     local issue_key = slugify(response.body)
     local issue_number = bucket.middleware.get(issue_key)
 
-    local request_url = 'https://api.github.com/repos/' .. github_repo_full_name .. '/issues'
-    local request_headers = {Authorization = 'token ' .. github_access_token}
-
     if issue_number == nil then
       -- create a new GitHub issue
-      local request_body = {title = response.body}
-      local issue_response_body = http.simple{method = 'POST', url = request_url, headers = request_headers, body = request_body}
-      local issue = json.decode(issue_response_body)
+      local issue = create_github_issue({title = response.body})
 
       -- register issue number
       bucket.middleware.set(issue_key, issue.number)
     else
       -- update the GitHub issue (reopen)
-      request_url = request_url .. '/' .. issue_number
-      local request_body = {state = 'open'}
-      http.simple{method = 'PATCH', url = request_url, headers = request_headers, body = request_body}
+      update_github_issue(issue_number, {state = 'open'})
     end
   end
 
