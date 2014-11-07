@@ -1,7 +1,6 @@
 require 'apitools-middleware'
 require 'highline/import'
 require 'active_support/core_ext/string/inflections'
-require 'etc'
 require 'i18n'
 require 'json'
 require 'erb'
@@ -86,13 +85,14 @@ task :middleware do
   comma_separated = ->(str) { str.split(/,\s*/).map(&:strip) }
   spec = {
     name: name = ask('Middleware Name: ', String) {|q| q.validate = /./ },
-    description:  ask('Description: ', String) {|q| q.validate = /./ },
+    description: ask('Description: ', String) {|q| q.validate = /./ },
     files: [file = ask('File Name: ', String) {|q| q.default = name.parameterize('_') + '.lua'; q.validate = /^\S+\.\S+$/ }],
-    author: ask('Author: ', String) {|q| q.default = Etc.getlogin },
+    spec: [Pathname(file).sub_ext('_spec.lua').to_s],
+    author: ask('Author: ', String) {|q| q.default = `git config --get user.name`.strip },
     email: ask('Email: ', String) {|q| q.validate = /@/; q.default = `git config --get user.email`.strip },
     version: ask('Version: ', String) {|q| q.default = '1.0.0'; q.validate = /^\d\.\d/ },
     categories: ask('Categories: ', comma_separated),
-    endpoints: ask('Endpoints: ', comma_separated){|q| q.default = '*' },
+    endpoints: ask('Endpoints: ', comma_separated) {|q| q.default = '*' },
   }
   folder = ask('Folder: ', String) { |q| q.default = name.parameterize('-'); q.validate = /./ }
 
