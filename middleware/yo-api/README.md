@@ -2,7 +2,7 @@
 
 ## How to use it
 
-1. Define Yo API endpoint as you APItools service URL `http://api.justyo.com`
+1. Define Yo API endpoint as you APItools service URL `http://api.justyo.co/`
 2. Define the Yo URL callback with your APItools URL `http://token.APITOOLS.com`
 3. Add CORS-header middleware in the pipeline
 4. Change `YO_API_TOKEN` in `yo.lua` by your own Yo API key.
