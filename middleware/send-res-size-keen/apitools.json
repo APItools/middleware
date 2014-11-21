@@ -1,0 +1,11 @@
+{
+    "name": "Send HTTP(s) response size to Keen IO",
+    "description": "Sends the size of an HTTP(s) response to Keen IO",
+    "files": ["send_res_size_keen.lua"],
+    "author" : "vramosp",
+    "email" : "vanessa@3scale.net",
+    "github_user" : "vramosp",
+    "version" : "1.0.0",
+    "categories" : ["data", "keen_IO"],
+    "endpoints": ["https://api.keen.io/3.0/"]
+}
