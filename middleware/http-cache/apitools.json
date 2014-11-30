@@ -1,0 +1,20 @@
+{
+  "name": "HTTP Cache",
+  "description": "Cache server responses using HTTP semantis like Etags and Last-Modified.",
+  "files": [
+    "http_cache.lua"
+  ],
+  "spec": [
+    "http_cache_spec.lua"
+  ],
+  "author": "Ludek Berecka",
+  "email": "berecka.ludek@gmail.com",
+  "version": "1.0.0",
+  "categories": [
+    "cache",
+    "http"
+  ],
+  "endpoints": [
+    "*"
+  ]
+}
