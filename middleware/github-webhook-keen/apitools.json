@@ -1,0 +1,12 @@
+
+{
+    "name": "Github webhooks to Keen IO",
+    "description": "Send all the activity in your Github repo to Keen IO",
+    "files": ["github-webhook-keen-io.lua"],
+    "author" : "plunchete",
+    "email" : "plunchete@gmail.com",
+    "github_user" : "plunchete",
+    "version" : "1.0.0",
+    "categories" : ["data", "keen_IO", "github"],
+    "endpoints": ["https://api.keen.io/3.0/"]
+}
