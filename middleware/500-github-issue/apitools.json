@@ -1,0 +1,21 @@
+{
+  "name": "500 GitHub issue",
+  "description": "Open a Github issue when an error occurs.",
+  "files": [
+    "500_github_issue.lua"
+  ],
+  "spec": [
+    "500_github_issue_spec.lua"
+  ],
+  "author": "Giovanni Cappellotto",
+  "email": "potomak84@gmail.com",
+  "version": "1.0.0",
+  "categories": [
+    "devops",
+    "notifications",
+    "github"
+  ],
+  "endpoints": [
+    "*"
+  ]
+}
