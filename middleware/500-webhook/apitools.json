@@ -1,0 +1,20 @@
+{
+  "name": "500 Webhook",
+  "description": "Send a POST request to URL when an error occurs",
+  "files": [
+    "500_webhook.lua"
+  ],
+  "spec": [
+    "500_webhook_spec.lua"
+  ],
+  "author": "Giovanni Cappellotto",
+  "email": "potomak84@gmail.com",
+  "version": "1.0.0",
+  "categories": [
+    "notifications",
+    "devops"
+  ],
+  "endpoints": [
+    "*"
+  ]
+}
