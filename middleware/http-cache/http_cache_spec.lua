@@ -34,11 +34,11 @@ describe('HTTP Cache', function()
 	      }
       }
     end)
-    local response = http_cache(request, next_middleware)
-    assert.equal(#spec.bucket.middleware.get_keys(), 3) 
+    http_cache(request, next_middleware)
+    assert.equal(#spec.bucket.middleware.get_keys(), 3)
 
     assert.spy(next_middleware).was_called()
-    
+
     assert(spec.bucket.middleware.get('/path'))
     assert(spec.bucket.middleware.get('"etag"'))
     assert(spec.bucket.middleware.get('http://localhost/path'))
@@ -57,7 +57,7 @@ describe('HTTP Cache', function()
 	      }
       }
     end)
-    local response = http_cache(request, next_middleware)
+    http_cache(request, next_middleware)
     http_cache(request, next_middleware)
 
     assert.spy(next_middleware).was_called(1)
