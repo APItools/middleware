@@ -36,7 +36,7 @@ describe('500 Bitbucket issue', function()
         spec.mock_http({
           method   = 'POST',
           url      = 'https://bitbucket.org/api/1.0/repositories/BITBUCKET_REPO_FULL_NAME/issues',
-          body     = 'title=an+error+message',
+          body     = 'content=an+error+message&title=%2F',
           headers  = {Authorization = 'Basic QklUQlVDS0VUX1VTRVJOQU1FOkJJVEJVQ0tFVF9QQVNTV09SRA=='}
         }, {
           body     = '{"resource_uri":"/1.0/repositories/owner/repo/issues/1","local_id":1}'
@@ -66,7 +66,7 @@ describe('500 Bitbucket issue', function()
         spec.mock_http({
           method   = 'POST',
           url      = 'https://bitbucket.org/api/1.0/repositories/BITBUCKET_REPO_FULL_NAME/issues',
-          body     = 'title=an+error+message',
+          body     = 'content=an+error+message&title=%2F',
           headers  = {Authorization = 'Basic QklUQlVDS0VUX1VTRVJOQU1FOkJJVEJVQ0tFVF9QQVNTV09SRA=='}
         }, {
           body     = '{"resource_uri":"/1.0/repositories/owner/repo/issues/1","local_id":1}'

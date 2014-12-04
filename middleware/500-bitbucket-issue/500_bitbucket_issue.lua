@@ -46,7 +46,7 @@ return function(request, next_middleware)
 
     if issue_number == nil then
       -- create a new Bitbucket issue
-      local issue = create_bitbucket_issue({title = response.body})
+      local issue = create_bitbucket_issue({title = request.uri, content = response.body})
 
       -- register issue number
       bucket.middleware.set(issue_key, issue.local_id)
