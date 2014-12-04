@@ -37,7 +37,7 @@ describe('Slow request GitHub issue', function()
         spec.mock_http({
           method   = 'POST',
           url      = 'https://api.github.com/repos/GITHUB_REPO_FULL_NAME/issues',
-          body     = 'title=Slow+request+%282+seconds%29%3A+http%3A%2F%2Flocalhost%2F',
+          body     = '{"title":"Slow request (2 seconds): http:\\/\\/localhost\\/"}',
           headers  = {Authorization = 'token GITHUB_ACCESS_TOKEN'}
         }, {
           body     = '{"url":"https://api.github.com/repos/owner/repo/issues/1","number":1}'
@@ -64,16 +64,16 @@ describe('Slow request GitHub issue', function()
         spec.mock_http({
           method   = 'POST',
           url      = 'https://api.github.com/repos/GITHUB_REPO_FULL_NAME/issues',
-          body     = 'title=Slow+request+%282+seconds%29%3A+http%3A%2F%2Flocalhost%2F',
+          body     = '{"title":"Slow request (2 seconds): http:\\/\\/localhost\\/"}',
           headers  = {Authorization = 'token GITHUB_ACCESS_TOKEN'}
         }, {
           body     = '{"url":"https://api.github.com/repos/owner/repo/issues/1","number":1}'
         })
 
         spec.mock_http({
-          method   = 'PATCH',
+          method   = 'POST', -- FIXME: this really should be PATH, but http.simple is broken
           url      = 'https://api.github.com/repos/GITHUB_REPO_FULL_NAME/issues/1',
-          body     = 'state=open',
+          body     = '{"state":"open"}',
           headers  = {Authorization = 'token GITHUB_ACCESS_TOKEN'}
         }, {
           body     = '{"url":"https://api.github.com/repos/owner/repo/issues/1","number":1}'

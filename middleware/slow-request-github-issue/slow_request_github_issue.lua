@@ -15,7 +15,7 @@ return function(request, next_middleware)
     if issue_number == nil then
       -- create a new GitHub issue
       local request_body = {title = 'Slow request (' .. trace.time .. ' seconds): ' .. request.uri_full}
-      local issue_response_body = http.simple{method = 'POST', url = request_url, headers = request_headers, body = request_body}
+      local issue_response_body = http.simple({method = 'POST', url = request_url, headers = request_headers}, json.encode(request_body))
       local issue = json.decode(issue_response_body)
 
       -- register issue number
@@ -24,7 +24,7 @@ return function(request, next_middleware)
       -- update the GitHub issue (reopen)
       request_url = request_url .. '/' .. issue_number
       local request_body = {state = 'open'}
-      http.simple{method = 'PATCH', url = request_url, headers = request_headers, body = request_body}
+      http.simple({method = 'PATCH', url = request_url, headers = request_headers}, json.encode(request_body))
     end
   end
 
