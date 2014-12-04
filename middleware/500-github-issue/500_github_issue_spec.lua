@@ -36,7 +36,7 @@ describe('500-github-issue', function()
         spec.mock_http({
           method   = 'POST',
           url      = 'https://api.github.com/repos/GITHUB_REPO_FULL_NAME/issues',
-          body     = 'title=an+error+message',
+          body     = '{"title":"an error message"}',
           headers  = {Authorization = 'token GITHUB_ACCESS_TOKEN'}
         }, {
           body     = '{"url":"https://api.github.com/repos/owner/repo/issues/1","number":1}'
@@ -66,17 +66,17 @@ describe('500-github-issue', function()
         spec.mock_http({
           method   = 'POST',
           url      = 'https://api.github.com/repos/GITHUB_REPO_FULL_NAME/issues',
-          body     = 'title=an+error+message',
-          headers  = {Authorization = 'token GITHUB_ACCESS_TOKEN'}
+          body     = '{"title":"an error message"}',
+          headers  = { Authorization = 'token GITHUB_ACCESS_TOKEN' }
         }, {
           body     = '{"url":"https://api.github.com/repos/owner/repo/issues/1","number":1}'
         })
 
         spec.mock_http({
-          method   = 'PATCH',
+          method   = 'POST', -- FIXME: this really should be PATCH, but http.simple is broken
           url      = 'https://api.github.com/repos/GITHUB_REPO_FULL_NAME/issues/1',
-          body     = 'state=open',
-          headers  = {Authorization = 'token GITHUB_ACCESS_TOKEN'}
+          body     = '{"state":"open"}',
+          headers  = { Authorization = 'token GITHUB_ACCESS_TOKEN' }
         }, {
           body     = '{"url":"https://api.github.com/repos/owner/repo/issues/1","number":1}'
         })

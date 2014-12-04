@@ -12,10 +12,9 @@ local function github_request(method, path, body)
   local request = {
     method = method,
     url = 'https://api.github.com' .. path,
-    headers = {Authorization = 'token ' .. github_access_token},
-    body = body
+    headers = {Authorization = 'token ' .. github_access_token}
   }
-  local response_body = http.simple(request)
+  local response_body = http.simple(request, json.encode(body))
   return json.decode(response_body)
 end
 
