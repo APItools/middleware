@@ -13,6 +13,6 @@ Vagrant.configure('2') do |config|
   SCRIPT
 
   config.vm.provision "shell",
-    path: 'https://gist.githubusercontent.com/mikz/411dbbc2aad5f147f87b/raw/189d89917ff44dff4e079307b38f8265e05dc07c/travis.rb',
+    path: 'https://gist.githubusercontent.com/mikz/411dbbc2aad5f147f87b/raw/ffb23a9c46d3210ba4b6b1067effd674b99cacdc/travis.rb',
     args: '/vagrant'
 end

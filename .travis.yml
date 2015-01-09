@@ -11,18 +11,11 @@ env:
     - LUAROCKS_VERSION=2.2.0
     - OPENRESTY_VERSION=1.7.2.1
     - OPENRESTY=/usr/local/openresty
+    - PATH=$PATH:/opt/apitools-monitor/embedded/bin
 before_install:
-  - sudo apt-get -y install make build-essential libpcre3-dev libssl-dev libexpat1-dev unzip
+  - curl -q https://packagecloud.io/install/repositories/APItools/monitor/script.deb | sudo bash
+  - sudo apt-get -y install make unzip apitools-monitor
 install:
-  - wget -qO- http://openresty.org/download/ngx_openresty-$OPENRESTY_VERSION.tar.gz | tar xvz -C /tmp/
-  - wget -qO- http://luarocks.org/releases/luarocks-$LUAROCKS_VERSION.tar.gz | tar xvz -C /tmp/
-  - cd /tmp/ngx_openresty-$OPENRESTY_VERSION && ./configure --prefix=$OPENRESTY && sudo make install
-  - sudo ln -sf $OPENRESTY/luajit/bin/luajit-2.1.0-alpha $OPENRESTY/luajit/bin/lua
-  - sudo ln -sf $OPENRESTY/luajit/bin/lua /usr/local/bin/lua
-  - cd /tmp/luarocks-$LUAROCKS_VERSION
-  - ./configure --with-lua=$OPENRESTY/luajit --with-lua-include=$OPENRESTY/luajit/include/luajit-2.1 --with-lua-lib=$OPENRESTY/lualib
-  - make build && sudo make install
-  - cd $TRAVIS_BUILD_DIR
   - bundle install
   - make dependencies
 script: make
