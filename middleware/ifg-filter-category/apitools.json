@@ -1,0 +1,23 @@
+{
+  "name": "Ifeelgoods, filter reward by category",
+  "description": "Retrieve reward of a specific category",
+  "files": [
+    "ifg_filter_rewards_by_category.lua"
+  ],
+  "spec": [
+    "ifg_filter_rewards_by_category_spec.lua"
+  ],
+  "author": "Nicolas Grenié",
+  "email": "nicolas@3scale.net",
+  "version": "1.0.0",
+  "categories": [
+    "filter",
+    "reward"
+  ],
+  "endpoints": [
+    "https://api-sandbox.ifeelgoods.com/",
+    "https://api.ifeelgoods.com/",
+    "https://oauth.ifeelgoods.com/",
+    "https://oauth-sandbox.ifeelgoods.com/"
+  ]
+}
