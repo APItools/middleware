@@ -13,7 +13,7 @@ env:
     - OPENRESTY=/usr/local/openresty
     - PATH=$PATH:/opt/apitools-monitor/embedded/bin
 before_install:
-  - curl -q https://packagecloud.io/install/repositories/APItools/monitor/script.deb | sudo bash
+  - curl -L -q https://packagecloud.io/install/repositories/APItools/monitor/script.deb | sudo bash
   - sudo apt-get -y install make unzip apitools-monitor
 install:
   - bundle install
