@@ -29,8 +29,8 @@ return function(request, next_middleware)
 
   local responses = http.multi(requests)
 
-  for i,response in ipairs(responses) do
-    nearest[i].route = json.decode(response.body)
+  for i,resp in ipairs(responses) do
+    nearest[i].route = json.decode(resp.body)
   end
 
   response.body = json.encode(nearest)

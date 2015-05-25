@@ -47,7 +47,7 @@ end
 
 local function fetch_cache(request)
   local cached = bucket.middleware.get(request.uri_relative)
-  
+
   if cached and cached.etag then
     if fresh(cached, request) then
       return fetch(cached)
@@ -59,12 +59,12 @@ local function cache_response(request, response, cached)
   local cache_control = response.cache_control
   local max_age = tonumber(cache_control['max-age'] or cache_control['s-maxage']) or 0
 
-  if not cache_control['public'] and max_age > 0 then return response end 
-  
+  if not cache_control['public'] and max_age > 0 then return response end
+
   local last_modified = response.headers['Last-Modified']
   local etag = response.headers['Etag']
-  
-  local metadata = { last_modified = last_modified, etag = etag, max_age = max_age, stored = time.now() }  
+
+  local metadata = { last_modified = last_modified, etag = etag, max_age = max_age, stored = time.now() }
 
   if cached and cached.response and response.status == 304 then
     metric.count('cache.refresh')
@@ -76,9 +76,9 @@ local function cache_response(request, response, cached)
     bucket.middleware.add(etag, response)
     metric.count('cache.stored')
   end
-  
+
   bucket.middleware.set(request.uri_relative, metadata, max_age)
-  
+
   return response
 end
 
@@ -87,14 +87,13 @@ local function fetch_upstream(request, next_middleware)
 
   if cached then
     cached.response = bucket.middleware.get(cached.etag)
- 
+
     if cached.response then
       request.headers['If-None-Match'] = cached.etag
       request.headers['If-Modified-Since'] = cached.last_modified
-    else
-    end    
+    end
   end
-    
+
   local response = next_middleware()
   response.cache_control = split_header(response.headers['Cache-Control'])
 
@@ -103,7 +102,7 @@ end
 
 return function (request, next_middleware)
   request.cache_control = split_header(request.headers['Cache-Control'])
-  
+
   if use_cache(request) then
     return fetch_cache(request) or fetch_upstream(request, next_middleware)
   else
