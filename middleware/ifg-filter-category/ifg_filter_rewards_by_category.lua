@@ -13,12 +13,14 @@ end
 
 return function(request, next_middleware)
   local response = next_middleware()
-
   local data = json.decode(response.body).data
-  local categories='CATEGORY_YOU_ARE_INTERESTED_IN'
+
+  -- CHANGE THIS TO THE CATEGORY YOU ARE INTERESTED IN
+  local category='ecommerce'
+
   local r ={}
   for i=1,#data do
-    if(indexOf(data[i].categories,categories) ~= -1) then
+    if(indexOf(data[i].categories, category) ~= -1) then
      table.insert(r,data[i])
     end
   end
