@@ -3,7 +3,7 @@ local cjson = require 'cjson'
 
 describe("I feel good filter price", function()
   it("filters a price between min and maximum", function()
-    local add             = spec.middleware('ifg/filter_rewards_by_price.lua')
+    local add             = spec.middleware('ifg-filter-price/ifg_filter_rewards_by_price.lua')
     local request         = spec.request({ method = 'GET', uri = '/'})
     local next_middleware = spec.next_middleware(function()
       assert.contains(request, {
