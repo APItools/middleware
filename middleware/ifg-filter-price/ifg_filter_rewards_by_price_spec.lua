@@ -17,6 +17,6 @@ describe("I feel good filter price", function()
 
     assert.spy(next_middleware).was_called()
     assert.equal(response.status, 200)
-    assert.same(cjson.decode(response.body), {data={face_value=5}})
+    assert.same(cjson.decode(response.body), {data={{face_value=5}}})
   end)
 end)
