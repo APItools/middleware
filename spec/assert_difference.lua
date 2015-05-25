@@ -1,4 +1,5 @@
 local s = require("say")
+local ass = require("luassert")
 
 local default_diff = 0.0001
 
@@ -21,4 +22,4 @@ end
 s:set("assertion.difference.positive", "Expected the difference between %s and %s to be smaller than %s")
 s:set("assertion.difference.negative", "Expected the difference between %s and %s to NOT to be smaller than %s")
 
-assert:register("assertion", "difference", difference_for_luassert, "assertion.difference.positive", "assertion.difference.negative")
+ass:register("assertion", "difference", difference_for_luassert, "assertion.difference.positive", "assertion.difference.negative")
