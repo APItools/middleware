@@ -8,9 +8,9 @@ describe("I feel good filter price", function()
     local next_middleware = spec.next_middleware(function()
       assert.contains(request, {
         method = 'GET',
-        uri = '/',
+        uri = '/'
       })
-      return {status = 200, body = '{"data": [{"categories": ["foo"]}, {"categories": ["ecommerce", "foo"]}, {"categories": ["ecommerce"]}]' }
+      return {status = 200, body = '{"data": [{"categories": ["foo"]}, {"categories": ["ecommerce", "foo"]}, {"categories": ["ecommerce"]}]}' }
     end)
 
     local response = add(request, next_middleware)
