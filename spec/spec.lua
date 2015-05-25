@@ -1,6 +1,8 @@
 require 'spec.assert_contains'
 require 'spec.assert_difference'
 
+local spy    = require 'luassert.spy'
+
 local env          = require 'spec.env.env'
 local sandbox      = require 'spec.sandbox'
 local http_utils   = require 'spec.env.http_utils'
