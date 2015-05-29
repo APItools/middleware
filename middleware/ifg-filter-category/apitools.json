@@ -15,9 +15,9 @@
     "reward"
   ],
   "endpoints": [
-    "https://api.ifeelgoods.com/",
-    "https://api-sandbox.ifeelgoods.com/",
-    "https://oauth.ifeelgoods.com/",
-    "https://oauth-sandbox.ifeelgoods.com/"
+    "https://api.ifeelgoods.com",
+    "https://api-sandbox.ifeelgoods.com",
+    "https://oauth.ifeelgoods.com",
+    "https://oauth-sandbox.ifeelgoods.com"
   ]
 }
