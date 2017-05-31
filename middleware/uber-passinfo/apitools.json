@@ -1,0 +1,12 @@
+{
+    "name": "Uber - passing params to API",
+    "description": "Pass parameters to Uber API",
+    "files": ["uber_passinfo.lua"],
+    "spec": ["uber_passinfo_spec.lua"],
+    "author" : "Picsoung",
+    "email" : "nicolas@3scale.net",
+    "github_user" : "Picsoung",
+    "version" : "1.0.0",
+    "categories" : ["APIs"],
+    "endpoints": ["https://api.uber.com/v1/"]
+}
